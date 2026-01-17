@@ -72,8 +72,7 @@
     <div class="qr-container">
         <img id="qrImg" alt="QR Code Booking">
         <p class="thanks-note">
-            Terimakasih atas kepercayaan Anda menggunakan jasa layanan kami.<br>
-            Semoga perjalanan Anda menyenangkan bersama <strong>Mahika Trans</strong>.
+            Terimakasih atas kepercayaan Anda menggunakan jasa layanan kami.
         </p>
     </div>
 
@@ -103,9 +102,9 @@ const db = getFirestore(app);
 const params = new URLSearchParams(window.location.search);
 const ticketID = params.get("id");
 
-// FUNGSI REDIRECT PENYUSUP KE DOMAIN UTAMA
+// FUNGSI REDIRECT KE DOMAIN UTAMA
 function tendangPenyusup() {
-    window.location.href = "https://domain.com";
+    window.location.href = "https://mahikatrans.my.id";
 }
 
 if(!ticketID) {
