@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mahika Trans | Validasi Tiket</title>
+    <title>Mahika Trans | Validasi</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --primary-blue: #065084; --bg-darker: #043a60; --gold: #FFD700; --white: #ffffff; }
+        :root { --primary-blue: #021a2b; --bg-darker: #010d16; --gold: #FFD700; --white: #ffffff; }
         
         body, html { 
             margin: 0; padding: 0; width: 100%; height: 100%; 
@@ -15,74 +15,101 @@
             background: radial-gradient(circle at center, var(--primary-blue), var(--bg-darker));
         }
 
+        /* PARTIKEL HIASAN */
+        .particles { position: absolute; width: 100%; height: 100%; z-index: 1; }
+        .particle {
+            position: absolute; background: var(--gold); border-radius: 50%;
+            opacity: 0.3; animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+
         .container {
+            position: relative; z-index: 10;
             display: flex; flex-direction: column; align-items: center;
             justify-content: center; height: 100vh; text-align: center; color: white; padding: 20px;
         }
 
         /* ICON BUS GOYANG */
         .bus-icon {
-            font-size: 80px; color: var(--gold); margin-bottom: 20px;
-            animation: busShake 0.5s infinite alternate ease-in-out;
-            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.3));
+            font-size: 80px; color: var(--gold); margin-bottom: 25px;
+            animation: busShake 0.6s infinite alternate ease-in-out;
+            filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.4));
         }
 
         @keyframes busShake {
-            0% { transform: translateY(0) rotate(-2deg); }
-            100% { transform: translateY(-10px) rotate(2deg); }
+            0% { transform: translateY(0) rotate(-3deg); }
+            100% { transform: translateY(-15px) rotate(3deg); }
         }
 
-        h1 { font-size: 22px; font-weight: 800; color: var(--gold); margin: 10px 0; text-transform: uppercase; letter-spacing: 1px; }
-        p { font-size: 14px; opacity: 0.9; line-height: 1.6; max-width: 280px; margin-bottom: 30px; }
+        h1 { font-size: 24px; font-weight: 800; color: var(--gold); margin: 10px 0; text-transform: uppercase; letter-spacing: 2px; }
+        p { font-size: 14px; opacity: 0.8; line-height: 1.6; max-width: 300px; margin-bottom: 35px; }
 
         /* TOMBOL WA TEMA MAHIKA */
         .btn-wa {
-            display: flex; align-items: center; gap: 10px;
-            background: transparent; color: var(--gold);
-            border: 2px solid var(--gold); padding: 15px 30px;
+            display: flex; align-items: center; gap: 12px;
+            background: rgba(255, 215, 0, 0.1); color: var(--gold);
+            border: 2px solid var(--gold); padding: 18px 35px;
             border-radius: 50px; text-decoration: none;
-            font-weight: 700; font-size: 13px; transition: 0.3s;
-            text-transform: uppercase;
+            font-weight: 700; font-size: 12px; transition: 0.3s;
+            text-transform: uppercase; letter-spacing: 1px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
-        .btn-wa:active { background: var(--gold); color: var(--bg-darker); }
+        .btn-wa:active { background: var(--gold); color: var(--bg-darker); transform: scale(0.95); }
 
-        .timer { margin-top: 40px; font-size: 11px; opacity: 0.6; font-weight: 400; }
-        .timer span { color: var(--gold); font-weight: 700; }
+        .timer { margin-top: 50px; font-size: 11px; opacity: 0.5; font-weight: 400; text-transform: uppercase; letter-spacing: 1px; }
+        .timer span { color: var(--gold); font-weight: 800; }
 
-        /* LOADING BAR */
         .loader-bar {
-            position: fixed; bottom: 0; left: 0; height: 4px;
-            background: var(--gold); width: 0%; transition: linear 10s;
+            position: fixed; bottom: 0; left: 0; height: 5px;
+            background: linear-gradient(to right, transparent, var(--gold)); 
+            width: 0%; transition: linear 10s; box-shadow: 0 0 15px var(--gold);
         }
     </style>
 </head>
 <body>
 
+<div class="particles" id="particle-container"></div>
+
 <div id="error-ui" class="container" style="display: none;">
     <i class="fas fa-bus-alt bus-icon"></i>
-    <h1>KODE TIDAK DITEMUKAN</h1>
-    <p>Mohon maaf, kode booking tidak valid atau tidak ditemukan. Silakan hubungi admin.</p>
+    <h1>KODE TIDAK VALID</h1>
+    <p>Maaf, kode booking tidak ditemukan. Pastikan link sudah benar atau hubungi admin Mahika Trans.</p>
     
-    <a href="https://wa.me/6281211407667" class="btn-wa">
-        <i class="fab fa-whatsapp"></i> Hubungi Admin
+    <a href="https://wa.me/628123456789" class="btn-wa">
+        <i class="fab fa-whatsapp" style="font-size: 18px;"></i> Hubungi Admin
     </a>
 
-    <div class="timer">Kembali ke Beranda dalam <span id="countdown">10</span> detik...</div>
+    <div class="timer">Mengarahkan ke Beranda dalam <span id="countdown">10</span> detik...</div>
     <div id="bar" class="loader-bar"></div>
 </div>
 
 <script>
-    // --- LOGIKA SHORT URL ---
+    // Bikin Partikel Kecil Otomatis
+    const pContainer = document.getElementById('particle-container');
+    for (let i = 0; i < 30; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.width = p.style.height = Math.random() * 5 + 2 + 'px';
+        p.style.animationDelay = Math.random() * 10 + 's';
+        p.style.animationDuration = Math.random() * 10 + 5 + 's';
+        pContainer.appendChild(p);
+    }
+
+    // LOGIKA REDIRECT / SHORT URL
     const path = window.location.pathname;
     const segments = path.split('/').filter(Boolean);
     const ticketID = segments.pop();
 
-    // Jika mengandung MT-, simpan di session dan lempar ke index
     if (ticketID && ticketID.startsWith("MT-")) {
         sessionStorage.setItem('short_id', ticketID);
         window.location.replace("/index.html");
     } else {
-        // Jika beneran error (Bukan kode MT), tampilkan UI Error
         document.getElementById('error-ui').style.display = 'flex';
         startTimer();
     }
@@ -91,14 +118,11 @@
         let timeLeft = 10;
         const display = document.getElementById('countdown');
         const bar = document.getElementById('bar');
-        
-        // Mulai loading bar
         setTimeout(() => bar.style.width = "100%", 100);
 
         const timer = setInterval(() => {
             timeLeft--;
             display.innerText = timeLeft;
-            
             if (timeLeft <= 0) {
                 clearInterval(timer);
                 window.location.replace("https://mahikatrans.my.id");
