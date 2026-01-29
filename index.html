@@ -11,45 +11,59 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 <link rel="stylesheet" href="style.css">
 <style>
+    :root { --blue-mahika: #065084; --dark-mahika: #021a2b; --gold-mahika: #FFD700; }
     body { padding-bottom: 50px; margin: 0; background: #f4f7f9; font-family: 'Poppins', sans-serif; }
     
+    .hidden { display: none !important; }
+
+    /* LOADING SCREEN */
     #loading-screen { 
         display: flex; flex-direction: column; align-items: center; 
-        justify-content: center; height: 100vh; color: #065084; 
+        justify-content: center; height: 100vh; color: var(--blue-mahika); 
     }
 
-    .penyusup-container {
-        display: flex; flex-direction: column; align-items: center;
-        justify-content: center; height: 100vh; text-align: center; padding: 20px;
+    /* UI PENYUSUP (ERROR SCREEN) */
+    #error-screen {
+        display: none; flex-direction: column; align-items: center; justify-content: center;
+        height: 100vh; text-align: center; padding: 30px;
+        background: radial-gradient(circle, var(--blue-mahika), var(--dark-mahika));
+        color: white; position: fixed; inset: 0; z-index: 999;
     }
-    .penyusup-emoji { font-size: 80px; margin-bottom: 20px; animation: bounce 2s infinite; }
-    .penyusup-title { font-weight: 900; color: #e11d48; font-size: 26px; }
-    .penyusup-text { color: #64748b; margin-top: 10px; font-size: 15px; }
-
-    @keyframes bounce {
-        0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-        40% {transform: translateY(-20px);}
-        60% {transform: translateY(-10px);}
+    .bus-shake { font-size: 80px; color: var(--gold-mahika); animation: shake 0.6s infinite alternate; filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.4)); }
+    @keyframes shake { from { transform: translateY(0) rotate(-2deg); } to { transform: translateY(-15px) rotate(2deg); } }
+    
+    .btn-admin {
+        margin-top: 30px; padding: 15px 35px; border: 2px solid var(--gold-mahika);
+        color: var(--gold-mahika); text-decoration: none; border-radius: 50px;
+        font-weight: 700; font-size: 13px; display: flex; align-items: center; gap: 10px;
+        text-transform: uppercase; background: rgba(255, 215, 0, 0.05); transition: 0.3s;
     }
+    .btn-admin:active { background: var(--gold-mahika); color: var(--dark-mahika); }
 
+    /* QR STYLING */
     .qr-container { text-align: center; padding: 10px 20px; }
     .qr-container img { 
-        width: 130px; height: 130px; margin: 0 auto; 
-        border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        border-radius: 12px;
+        width: 140px; height: 140px; margin: 0 auto; 
+        border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-radius: 12px;
     }
-
-    .hidden { display: none !important; }
+    .kode-booking { background: var(--blue-mahika); color: var(--gold-mahika); padding: 5px 15px; border-radius: 50px; font-weight: 900; }
 </style>
 </head>
 
 <body>
 
-<audio id="audioError" src="https://www.soundjay.com/buttons/sounds/button-10.mp3" preload="auto"></audio>
-
 <div id="loading-screen">
     <i class="fas fa-circle-notch fa-spin fa-3x"></i>
     <p style="margin-top:15px; font-weight: 600;">Memvalidasi Tiket...</p>
+</div>
+
+<div id="error-screen">
+    <i class="fas fa-bus bus-shake"></i>
+    <h2 style="color: var(--gold-mahika); margin: 25px 0 10px 0; font-weight: 900;">KODE BOOKING SALAH</h2>
+    <p style="opacity: 0.8; font-size: 14px; max-width: 280px; line-height: 1.6;">Harap Hubungi Admin <b>MAHIKA TRANS</b> untuk validasi atau pemesanan tiket Anda.</p>
+    <a href="https://wa.me/6281234567890" class="btn-admin">
+        <i class="fab fa-whatsapp" style="font-size: 20px;"></i> Hubungi Admin
+    </a>
 </div>
 
 <div id="main-content" class="etiket-container hidden">
@@ -72,7 +86,7 @@
             <p><i class="fas fa-chair"></i> <span id="no_kursi"></span></p>
             <p><i class="fas fa-calendar-alt"></i> <span id="tgl"></span></p>
             <p><i class="fas fa-clock"></i> <span id="jam"></span></p>
-            <p><i class="fa-solid fa-rupiah-sign"></i><span id="harga"></span></p>
+            <p><i class="fa-solid fa-rupiah-sign"></i> <span id="harga"></span></p>
         </div>
     </div>
 
@@ -91,14 +105,6 @@
     </div>
 </div>
 
-<div id="penyusup-screen" class="hidden">
-    <div class="penyusup-container">
-        <div class="penyusup-emoji">🚫</div>
-        <h1 class="penyusup-title">BELI TIKET DULU, BRO!</h1>
-        <p class="penyusup-text">Tiket tidak valid atau kode booking salah.<br>Silahkan hubungi admin Mahika Trans.</p>
-    </div>
-</div>
-
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -114,28 +120,27 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// --- LOGIKA SHORT URL: BISA BACA ?id= ATAU LANGSUNG /KODE ---
+// 1. Ambil ID dari URL (?id=) atau dari Path (go.mahikatrans.my.id/MT-123456)
 const params = new URLSearchParams(window.location.search);
-let ticketID = params.get("id");
+let ticketID = params.get("id") || sessionStorage.getItem('short_id');
 
+// Jika tidak ada di sessionStorage, coba ambil dari path URL langsung
 if (!ticketID) {
-    // Ambil kode dari path URL (misal: /ABCDE)
     const path = window.location.pathname.split("/").pop();
-    if (path && path !== "" && path !== "index.html" && path !== "go") {
+    if (path && path.startsWith("MT-")) {
         ticketID = path;
     }
 }
-// ------------------------------------------------------------
 
-function tampilkanPenyusup() {
+// Fungsi menampilkan layar error
+function showPenyusupUI() {
     document.getElementById("loading-screen").classList.add("hidden");
-    document.getElementById("penyusup-screen").classList.remove("hidden");
-    const sound = document.getElementById("audioError");
-    sound.play().catch(e => console.log("Audio play blocked"));
+    document.getElementById("main-content").classList.add("hidden");
+    document.getElementById("error-screen").style.display = "flex";
 }
 
 if(!ticketID) {
-    tampilkanPenyusup();
+    showPenyusupUI();
 } else {
     try {
         const docRef = doc(db, "bookings", ticketID);
@@ -147,7 +152,6 @@ if(!ticketID) {
             document.getElementById("loading-screen").classList.add("hidden");
             document.getElementById("main-content").classList.remove("hidden");
             
-            // Masukkan data
             document.getElementById("kodeBooking").innerText = ticketID.toUpperCase();
             document.getElementById("nama").innerText = data.nama || "-";
             document.getElementById("no_hp").innerText = data.wa || "-";
@@ -155,15 +159,12 @@ if(!ticketID) {
             document.getElementById("tujuan").innerText = data.tujuan || "-";
             document.getElementById("no_kursi").innerText = data.kursi || "-";
             
-            // Fix Jam
             const jamBersih = data.jam ? data.jam.replace(/WIB/gi, "").trim() : "--:--";
             document.getElementById("jam").innerText = jamBersih + " WIB";
             
-            // Harga (Cek field 'nominal' atau 'harga')
             const hargaNominal = (data.nominal || data.harga) ? Number(data.nominal || data.harga).toLocaleString("id-ID") : "0";
             document.getElementById("harga").innerText = hargaNominal;
             
-            // Format Tanggal
             if(data.tgl) {
                 const dateParts = data.tgl.split("-");
                 const dateObj = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
@@ -171,14 +172,15 @@ if(!ticketID) {
                 document.getElementById("tgl").innerText = dateObj.toLocaleDateString("id-ID", opsi);
             }
 
-            // QR Code menggunakan URL saat ini
-            document.getElementById("qrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(window.location.href)}`;
+            // QR Code
+            const currentURL = window.location.origin + "/" + ticketID;
+            document.getElementById("qrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(currentURL)}`;
 
         } else {
-            tampilkanPenyusup();
+            showPenyusupUI();
         }
     } catch (e) {
-        tampilkanPenyusup();
+        showPenyusupUI();
     }
 }
 </script>
