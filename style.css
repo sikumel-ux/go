@@ -11,7 +11,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 /* =========================
@@ -20,16 +20,17 @@ body {
 .etiket-container {
     width: 100%;
     max-width: 400px;
-    height: 100vh;
+    min-height: 100vh;
     background: #fff;
     padding: 20px;
-    border-radius: 10px;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 /* =========================
-   HEADER
+   HEADER & KODE BOOKING
 ========================= */
 .etiket-header {
     background: linear-gradient(135deg, #0066AE, #005b99);
@@ -48,187 +49,107 @@ body {
     height: 40px;
 }
 
-.header img,
 .logo {
-    width: 80%;
+    width: 180px;
     height: auto;
 }
 
-/* =========================
-   KODE BOOKING
-========================= */
 .kode-booking {
     position: relative;
     top: 40px;
     margin: auto;
-    width: 80%;
-    padding: 12px 20px;
+    width: 85%;
+    padding: 12px 10px;
     background: #fff;
     color: #004a80;
-    font-weight: bold;
+    font-weight: 800;
     font-size: 18px;
-    border-radius: 0 0 10px 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border-radius: 0 0 15px 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
     text-align: center;
     z-index: 10;
+    border: 1px solid #eee;
 }
 
 /* =========================
-   NAV TOP
-========================= */
-.nav-top {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-}
-
-.nav-top i {
-    color: #fff;
-    font-size: 18px;
-}
-
-/* =========================
-   INFO GRID
+   INFO GRID (DIPERBAIKI)
 ========================= */
 .info-grid {
     display: flex;
     justify-content: space-between;
-    margin-top: 40px;
-    flex-grow: 1;
+    margin-top: 50px; /* Jarak untuk kode booking */
+    padding: 10px 0;
 }
 
-.kolom {
-    width: 48%;
-}
-
+.kolom { width: 48%; }
 .kolom p {
-    font-size: 14px;
-    padding: 8px;
-    background: #fff;
-    border-radius: 5px;
-    margin-bottom: 5px;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    font-size: 11px;
+    padding: 10px;
+    background: #fdfdfd;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
     display: flex;
     align-items: center;
+    border: 1px solid #f0f0f0;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
-.kolom i {
-    margin-right: 8px;
+.kolom i { margin-right: 8px; color: #0066AE; width: 15px; text-align: center; }
+
+/* =========================
+   TAMBAHAN: LOADING & ERROR UI
+========================= */
+.hidden { display: none !important; }
+
+#loading-screen {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    height: 100vh; width: 100%; position: absolute; top: 0; left: 0; background: #fff; z-index: 100;
+}
+
+#error-screen {
+    display: none; flex-direction: column; align-items: center; justify-content: center;
+    height: 100vh; width: 100%; padding: 40px; text-align: center; box-sizing: border-box;
+    background: radial-gradient(circle, #0066AE, #003a63); color: white;
+}
+
+.bus-shake {
+    font-size: 80px; color: #FFD700; margin-bottom: 20px;
+    animation: shake 0.6s infinite alternate ease-in-out;
+}
+@keyframes shake { from { transform: translateY(0); } to { transform: translateY(-10px); } }
+
+.btn-admin {
+    margin-top: 30px; padding: 15px 30px; border: 2px solid #FFD700;
+    color: #FFD700; text-decoration: none; border-radius: 50px;
+    font-weight: 700; font-size: 12px; display: flex; align-items: center; gap: 10px;
 }
 
 /* =========================
-   KETERANGAN
+   BARCODE & FOOTER
 ========================= */
 .keterangan {
-    font-size: 12px;
-    background: #eee;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 5px;
+    font-size: 10px; background: #f8f8f8; padding: 12px;
+    border-radius: 10px; margin-top: 10px; color: #555; line-height: 1.4;
 }
 
-/* =========================
-   TEAR LINE
-========================= */
 .tear-line {
-    width: 100%;
-    height: 10px;
-    margin: 5px 0;
-    background: repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 8px,
-        #ccc 8px,
-        #ccc 10px
-    );
+    width: 100%; height: 2px; margin: 20px 0;
+    border-top: 2px dashed #ccc;
 }
 
-/* =========================
-   BARCODE
-========================= */
 .barcode-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 100%; display: flex; justify-content: center; padding-bottom: 30px;
 }
 
 .barcode {
-    width: 95%;
-    text-align: center;
-    padding: 10px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%; text-align: center; padding: 20px;
+    background: #fff; border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.barcode img {
-    width: 50%;
-    max-width: 60%;
-    height: auto;
-}
+.barcode img { width: 140px; height: 140px; border: 5px solid #f9f9f9; border-radius: 10px; }
 
-.thanks {
-    text-align: center;
-    font-size: 12px;
-    font-weight: bold;
-    margin-top: 10px;
-    color: #000;
-}
-
-/* =========================
-   FOOTER
-========================= */
-.etiket-footer {
-    position: relative;
-    padding: 10px;
-    overflow: hidden;
-    background: linear-gradient(135deg, #0066AE, #004a80);
-}
-
-.etiket-footer::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 30px;
-    bottom: 100%;
-    left: 0;
-    background: url('https://upload.wikimedia.org/wikipedia/commons/6/6a/Sine_wave.svg');
-    background-size: cover;
-}
-
-/* =========================
-   NAV BOTTOM
-========================= */
-.nav-bottom {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 10px;
-}
-
-.nav-bottom a {
-    width: 22%;
-    background: linear-gradient(135deg, #0066AE, #004a80);
-    color: #fff;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 18px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    transition: transform 0.2s ease-in-out;
-}
-
-.nav-bottom a:hover {
-    background: #005b99;
-    transform: scale(1.1);
-}
-
-/* =========================
-   KONTEN
-========================= */
-.konten {
-    padding-top: 20px;
-    padding-bottom: 80px;
-  }
+.thanks { text-align: center; font-size: 11px; font-weight: bold; margin-top: 15px; color: #333; }
+                                 
