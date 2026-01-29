@@ -4,47 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etiket Mahika Trans</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="style.css"> 
-    <style>
-        .hidden { display: none !important; }
-        /* Style Tambahan untuk UI Penyusup biar tetep keren di dlm container */
-        #error-screen {
-            display: none; flex-direction: column; align-items: center; justify-content: center;
-            height: 80vh; text-align: center; color: #0066AE;
-        }
-        .btn-admin {
-            margin-top: 20px; padding: 12px 25px; background: #0066AE;
-            color: #FFD700; text-decoration: none; border-radius: 10px;
-            font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 8px;
-        }
-    </style>
+    <link rel="stylesheet" href="stylex.css">
 </head>
 <body>
 
 <div class="etiket-container">
-    
-    <div id="loading-screen" style="text-align:center; margin-top: 50%;">
+    <div id="loading-screen">
         <i class="fas fa-circle-notch fa-spin fa-3x" style="color:#0066AE"></i>
-        <p style="font-weight:600; color:#0066AE">Memvalidasi...</p>
+        <p style="margin-top:15px; font-weight:600; color:#0066AE">Memvalidasi...</p>
     </div>
 
     <div id="error-screen">
-        <i class="fas fa-bus-alt fa-4x" style="color: #FFD700; margin-bottom: 20px;"></i>
-        <h2 style="font-weight: 800; margin: 0;">KODE SALAH</h2>
-        <p style="font-size: 13px; color: #666;">Harap hubungi Admin Mahika Trans.</p>
+        <i class="fas fa-bus bus-shake"></i>
+        <h2 style="font-weight: 800; margin: 0; letter-spacing: 1px;">KODE SALAH</h2>
+        <p style="font-size: 13px; opacity: 0.8;">Silakan hubungi Admin Mahika Trans.</p>
         <a href="https://wa.me/6281234567890" class="btn-admin">
-            <i class="fab fa-whatsapp"></i> WHATSAPP ADMIN
+            <i class="fab fa-whatsapp" style="font-size: 18px;"></i> HUBUNGI ADMIN
         </a>
     </div>
 
     <div id="main-content" class="hidden">
         <div class="etiket-header">
-            <div class="header">
-                <img src="logo.png" alt="Mahika Trans" class="logo">
-            </div>
-            <p class="kode-booking" id="kodeBooking">MT-000000</p>
+            <div class="header"><img src="logo.png" class="logo"></div>
+            <p class="kode-booking" id="kodeBooking">-</p>
         </div>
 
         <div class="info-grid">
@@ -54,7 +38,6 @@
                 <p><i class="fas fa-bus"></i> <span id="armada"></span></p> 
                 <p><i class="fas fa-map-marker-alt"></i> <span id="tujuan"></span></p>
             </div>
-
             <div class="kolom">
                 <p><i class="fas fa-chair"></i> <span id="no_kursi"></span></p>
                 <p><i class="fas fa-calendar-alt"></i> <span id="tgl"></span></p>
@@ -79,71 +62,54 @@
 </div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-const firebaseConfig = { 
-    apiKey: "AIzaSyAmTAWHcHpolaIHegLceyMqExVgzufJzaU", 
-    authDomain: "mahika-trans.firebaseapp.com", 
-    projectId: "mahika-trans", 
-    storageBucket: "mahika-trans.firebasestorage.app", 
-    appId: "1:1087881066133:web:148d51c88f1de3466ecd9c" 
-};
+    const firebaseConfig = { 
+        apiKey: "AIzaSyAmTAWHcHpolaIHegLceyMqExVgzufJzaU", 
+        authDomain: "mahika-trans.firebaseapp.com", 
+        projectId: "mahika-trans", 
+        storageBucket: "mahika-trans.firebasestorage.app", 
+        appId: "1:1087881066133:web:148d51c88f1de3466ecd9c" 
+    };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-// AMBIL ID DARI PATH URL
-const params = new URLSearchParams(window.location.search);
-let ticketID = params.get("id") || window.location.pathname.split("/").pop();
+    const ticketID = window.location.pathname.split("/").pop() || new URLSearchParams(window.location.search).get("id");
 
-function showPenyusup() {
-    document.getElementById("loading-screen").classList.add("hidden");
-    document.getElementById("main-content").classList.add("hidden");
-    document.getElementById("error-screen").style.display = "flex";
-}
-
-if(!ticketID || ticketID === "" || ticketID === "index.html") {
-    showPenyusup();
-} else {
-    try {
-        const docRef = doc(db, "bookings", ticketID);
-        const docSnap = await getDoc(docRef);
-
-        if(docSnap.exists()){
-            const data = docSnap.data();
-            
-            document.getElementById("loading-screen").classList.add("hidden");
-            document.getElementById("main-content").classList.remove("hidden");
-            
-            document.getElementById("kodeBooking").innerText = ticketID.toUpperCase();
-            document.getElementById("nama").innerText = data.nama || "-";
-            document.getElementById("no_hp").innerText = data.wa || "-";
-            document.getElementById("armada").innerText = data.armada || "-";
-            document.getElementById("tujuan").innerText = data.tujuan || "-";
-            document.getElementById("no_kursi").innerText = data.kursi || "-";
-            document.getElementById("jam").innerText = (data.jam || "--:--").replace(/WIB/gi, "") + " WIB";
-            
-            const hargaNominal = (data.nominal || data.harga) ? Number(data.nominal || data.harga).toLocaleString("id-ID") : "0";
-            document.getElementById("harga").innerText = hargaNominal;
-            
-            if(data.tgl) {
-                const dateParts = data.tgl.split("-");
-                const dateObj = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-                document.getElementById("tgl").innerText = dateObj.toLocaleDateString("id-ID", { day: "2-digit", month: "short", year: "numeric" });
-            }
-
-            // QR Code (Sesuaikan dengan barcode-container kamu)
-            const finalURL = window.location.origin + "/" + ticketID;
-            document.getElementById("qrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(finalURL)}`;
-
-        } else {
-            showPenyusup();
-        }
-    } catch (e) {
-        showPenyusup();
+    async function init() {
+        if(!ticketID || ticketID === "index.html" || !ticketID.startsWith("MT-")) return showErr();
+        try {
+            const snap = await getDoc(doc(db, "bookings", ticketID));
+            if(snap.exists()){
+                const d = snap.data();
+                document.getElementById("loading-screen").classList.add("hidden");
+                document.getElementById("main-content").classList.remove("hidden");
+                document.getElementById("kodeBooking").innerText = ticketID;
+                document.getElementById("nama").innerText = d.nama;
+                document.getElementById("no_hp").innerText = d.wa;
+                document.getElementById("armada").innerText = d.armada;
+                document.getElementById("tujuan").innerText = d.tujuan;
+                document.getElementById("no_kursi").innerText = d.kursi;
+                document.getElementById("jam").innerText = (d.jam || "").replace(/WIB/gi,"") + " WIB";
+                document.getElementById("harga").innerText = Number(d.nominal || d.harga).toLocaleString("id-ID");
+                if(d.tgl) {
+                    const dt = d.tgl.split("-");
+                    document.getElementById("tgl").innerText = new Date(dt[0], dt[1]-1, dt[2]).toLocaleDateString("id-ID", {day:"2-digit", month:"short", year:"numeric"});
+                }
+                document.getElementById("qrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(window.location.href)}`;
+            } else { showErr(); }
+        } catch(e) { showErr(); }
     }
-}
+
+    function showErr() {
+        document.getElementById("loading-screen").classList.add("hidden");
+        document.getElementById("error-screen").style.display = "flex";
+    }
+
+    init();
 </script>
 </body>
-</html>
+    </html>
+    
