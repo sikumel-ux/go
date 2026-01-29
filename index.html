@@ -1,64 +1,55 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Etiket Mahika Trans</title>
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#065084">
-    <link rel="icon" href="../m.png">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="https://mahikatrans.my.id/stylez.css">
-    <style>
-        body { padding-bottom: 50px; margin: 0; background: #f4f7f9; font-family: 'Poppins', sans-serif; }
-        
-        #loading-screen, #error-screen { 
-            display: flex; flex-direction: column; align-items: center; 
-            justify-content: center; height: 100vh; text-align: center; padding: 20px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Etiket Mahika Trans</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#065084">
+<link rel="icon" href="../m.png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link rel="stylesheet" href="../stylez.css">
+<style>
+    body { padding-bottom: 50px; margin: 0; background: #f4f7f9; font-family: 'Poppins', sans-serif; }
+    
+    #loading-screen { 
+        display: flex; flex-direction: column; align-items: center; 
+        justify-content: center; height: 100vh; color: #065084; 
+    }
 
-        #error-screen { background-color: #e11d48; color: white; display: none; }
-        
-        .bus-shake { font-size: 80px; margin-bottom: 20px; animation: bounce 2s infinite; }
-        
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-20px);}
-            60% {transform: translateY(-10px);}
-        }
+    .penyusup-container {
+        display: flex; flex-direction: column; align-items: center;
+        justify-content: center; height: 100vh; text-align: center; padding: 20px;
+    }
+    .penyusup-emoji { font-size: 80px; margin-bottom: 20px; animation: bounce 2s infinite; }
+    .penyusup-title { font-weight: 900; color: #e11d48; font-size: 26px; }
+    .penyusup-text { color: #64748b; margin-top: 10px; font-size: 15px; }
 
-        .btn-admin-wa {
-            margin-top: 20px; padding: 12px 25px; background: #25d366; color: white;
-            text-decoration: none; border-radius: 50px; font-weight: 600; display: flex; align-items: center; gap: 10px;
-        }
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+        40% {transform: translateY(-20px);}
+        60% {transform: translateY(-10px);}
+    }
 
-        .qr-container { text-align: center; padding: 10px 20px; }
-        .qr-container img { 
-            width: 130px; height: 130px; margin: 0 auto; 
-            border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            border-radius: 12px;
-        }
+    .qr-container { text-align: center; padding: 10px 20px; }
+    .qr-container img { 
+        width: 130px; height: 130px; margin: 0 auto; 
+        border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        border-radius: 12px;
+    }
 
-        .hidden { display: none !important; }
-    </style>
+    .hidden { display: none !important; }
+</style>
 </head>
+
 <body>
 
 <audio id="audioError" src="https://www.soundjay.com/buttons/sounds/button-10.mp3" preload="auto"></audio>
 
 <div id="loading-screen">
-    <i class="fas fa-circle-notch fa-spin fa-3x" style="color: #065084;"></i>
-    <p style="margin-top:15px; font-weight: 600; color: #065084;">Memvalidasi Tiket...</p>
-</div>
-
-<div id="error-screen">
-    <div class="bus-shake">🚫</div>
-    <h2 style="font-weight: 900; margin: 0; letter-spacing: 1px;">KODE BOOKING SALAH</h2>
-    <p style="opacity: 0.9; font-size: 14px; margin-top: 10px; max-width: 280px;">Harap hubungi Admin <b>MAHIKA TRANS</b> untuk validasi tiket Anda.</p>
-    <a href="https://wa.me/6281234567890" class="btn-admin-wa">
-        <i class="fab fa-whatsapp"></i> HUBUNGI ADMIN
-    </a>
+    <i class="fas fa-circle-notch fa-spin fa-3x"></i>
+    <p style="margin-top:15px; font-weight: 600;">Memvalidasi Tiket...</p>
 </div>
 
 <div id="main-content" class="etiket-container hidden">
@@ -76,11 +67,12 @@
             <p><i class="fas fa-bus"></i> <span id="armada"></span></p> 
             <p><i class="fas fa-map-marker-alt"></i> <span id="tujuan"></span></p>
         </div>
+
         <div class="kolom">
             <p><i class="fas fa-chair"></i> <span id="no_kursi"></span></p>
             <p><i class="fas fa-calendar-alt"></i> <span id="tgl"></span></p>
             <p><i class="fas fa-clock"></i> <span id="jam"></span></p>
-            <p><i class="fa-solid fa-rupiah-sign"></i> <span id="harga"></span></p>
+            <p><i class="fa-solid fa-rupiah-sign"></i><span id="harga"></span></p>
         </div>
     </div>
 
@@ -91,11 +83,19 @@
         <p class="thanks" style="font-size: 10px; margin-top: 10px; color: #666; line-height: 1.4;">Terimakasih atas kepercayaan Anda menggunakan jasa layanan kami.</p>
     </div>
 
-    <div class="keterangan" style="margin-top: 5px; padding: 15px;">
+    <div class="keterangan" style="margin-top: 5px;">
         <p><strong>Perhatian:</strong></p>
         <p>1. Tiket yang sudah dipesan tidak dapat dibatalkan</p>
         <p>2. Harap datang maksimal 30 menit sebelum jadwal pemberangkatan</p>
         <p>3. Anak usia 3 tahun atau tinggi badan 90cm wajib membeli tiket</p>
+    </div>
+</div>
+
+<div id="penyusup-screen" class="hidden">
+    <div class="penyusup-container">
+        <div class="penyusup-emoji">🚫</div>
+        <h1 class="penyusup-title">BELI TIKET DULU, BRO!</h1>
+        <p class="penyusup-text">Tiket tidak valid atau kode booking salah.<br>Silahkan hubungi admin Mahika Trans.</p>
     </div>
 </div>
 
@@ -114,31 +114,19 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Ambil ID Tiket dari URL (?id=... atau dari path)
 const params = new URLSearchParams(window.location.search);
-let ticketID = params.get("id");
+const ticketID = params.get("id");
 
-if (!ticketID) {
-    const path = window.location.pathname.split("/").pop();
-    if (path && !["", "index.html", "go"].includes(path)) {
-        ticketID = path;
-    }
-}
-
-function tampilkanError() {
+function tampilkanPenyusup() {
     document.getElementById("loading-screen").classList.add("hidden");
-    document.getElementById("error-screen").style.display = "flex";
+    document.getElementById("penyusup-screen").classList.remove("hidden");
     const sound = document.getElementById("audioError");
-    if(sound) sound.play().catch(e => console.log("Audio play blocked"));
+    sound.play().catch(e => console.log("Audio play blocked"));
 }
 
-async function loadTicket() {
-    // Validasi format tiket (misal harus diawali MT-)
-    if(!ticketID) {
-        tampilkanError();
-        return;
-    }
-
+if(!ticketID) {
+    tampilkanPenyusup();
+} else {
     try {
         const docRef = doc(db, "bookings", ticketID);
         const docSnap = await getDoc(docRef);
@@ -149,38 +137,41 @@ async function loadTicket() {
             document.getElementById("loading-screen").classList.add("hidden");
             document.getElementById("main-content").classList.remove("hidden");
             
-            document.getElementById("kodeBooking").innerText = ticketID.toUpperCase();
+            // Masukkan data
+            document.getElementById("kodeBooking").innerText = ticketID.substring(0, 8).toUpperCase();
             document.getElementById("nama").innerText = data.nama || "-";
-            document.getElementById("no_hp").innerText = data.wa || "-";
-            document.getElementById("armada").innerText = data.armada || "-";
+            document.getElementById("no_hp").innerText = data.wa || "-"; // Munculkan No HP
+            document.getElementById("armada").innerText = data.armada || "-"; // Ambil dari inputan
             document.getElementById("tujuan").innerText = data.tujuan || "-";
-            document.getElementById("no_kursi").innerText = data.kursi || "-";
+            document.getElementById("no_kursi").innerText = data.kursi || "-"; // Pax dibuang
             
+            // Fix Jam (Cegah Double WIB)
             const jamBersih = data.jam ? data.jam.replace(/WIB/gi, "").trim() : "--:--";
             document.getElementById("jam").innerText = jamBersih + " WIB";
             
-            const hargaVal = data.nominal || data.harga || 0;
-            document.getElementById("harga").innerText = Number(hargaVal).toLocaleString("id-ID");
+            // Harga
+            const hargaNominal = data.harga ? Number(data.harga).toLocaleString("id-ID") : "0";
+            document.getElementById("harga").innerText = hargaNominal;
             
+            // Format Tanggal Indonesia
             if(data.tgl) {
-                const dateParts = data.tgl.split("-"); // Asumsi format YYYY-MM-DD
+                const dateParts = data.tgl.split("-");
                 const dateObj = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
                 const opsi = { day: "2-digit", month: "short", year: "numeric" };
                 document.getElementById("tgl").innerText = dateObj.toLocaleDateString("id-ID", opsi);
             }
 
-            document.getElementById("qrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(window.location.href)}`;
+            // QR Code (Link etiket)
+            const currentUrl = window.location.href;
+            document.getElementById("qrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(currentUrl)}`;
+
         } else {
-            tampilkanError();
+            tampilkanPenyusup();
         }
     } catch (e) {
-        console.error(e);
-        tampilkanError();
+        tampilkanPenyusup();
     }
 }
-
-loadTicket();
 </script>
 </body>
-  </html>
-  
+</html>
