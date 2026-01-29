@@ -1,107 +1,80 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Etiket Mahika Trans</title>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#065084">
-<link rel="icon" href="m.png">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-<link rel="stylesheet" href="style.css">
-<style>
-    :root { --blue-mahika: #065084; --dark-mahika: #021a2b; --gold-mahika: #FFD700; }
-    body { padding-bottom: 50px; margin: 0; background: #f4f7f9; font-family: 'Poppins', sans-serif; }
-    
-    .hidden { display: none !important; }
-
-    /* LOADING SCREEN */
-    #loading-screen { 
-        display: flex; flex-direction: column; align-items: center; 
-        justify-content: center; height: 100vh; color: var(--blue-mahika); 
-    }
-
-    /* UI PENYUSUP (ERROR SCREEN) */
-    #error-screen {
-        display: none; flex-direction: column; align-items: center; justify-content: center;
-        height: 100vh; text-align: center; padding: 30px;
-        background: radial-gradient(circle, var(--blue-mahika), var(--dark-mahika));
-        color: white; position: fixed; inset: 0; z-index: 999;
-    }
-    .bus-shake { font-size: 80px; color: var(--gold-mahika); animation: shake 0.6s infinite alternate; filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.4)); }
-    @keyframes shake { from { transform: translateY(0) rotate(-2deg); } to { transform: translateY(-15px) rotate(2deg); } }
-    
-    .btn-admin {
-        margin-top: 30px; padding: 15px 35px; border: 2px solid var(--gold-mahika);
-        color: var(--gold-mahika); text-decoration: none; border-radius: 50px;
-        font-weight: 700; font-size: 13px; display: flex; align-items: center; gap: 10px;
-        text-transform: uppercase; background: rgba(255, 215, 0, 0.05); transition: 0.3s;
-    }
-    .btn-admin:active { background: var(--gold-mahika); color: var(--dark-mahika); }
-
-    /* QR STYLING */
-    .qr-container { text-align: center; padding: 10px 20px; }
-    .qr-container img { 
-        width: 140px; height: 140px; margin: 0 auto; 
-        border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-radius: 12px;
-    }
-    .kode-booking { background: var(--blue-mahika); color: var(--gold-mahika); padding: 5px 15px; border-radius: 50px; font-weight: 900; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etiket Mahika Trans</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css"> 
+    <style>
+        .hidden { display: none !important; }
+        /* Style Tambahan untuk UI Penyusup biar tetep keren di dlm container */
+        #error-screen {
+            display: none; flex-direction: column; align-items: center; justify-content: center;
+            height: 80vh; text-align: center; color: #0066AE;
+        }
+        .btn-admin {
+            margin-top: 20px; padding: 12px 25px; background: #0066AE;
+            color: #FFD700; text-decoration: none; border-radius: 10px;
+            font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 8px;
+        }
+    </style>
 </head>
-
 <body>
 
-<div id="loading-screen">
-    <i class="fas fa-circle-notch fa-spin fa-3x"></i>
-    <p style="margin-top:15px; font-weight: 600;">Memvalidasi Tiket...</p>
-</div>
-
-<div id="error-screen">
-    <i class="fas fa-bus bus-shake"></i>
-    <h2 style="color: var(--gold-mahika); margin: 25px 0 10px 0; font-weight: 900;">KODE BOOKING SALAH</h2>
-    <p style="opacity: 0.8; font-size: 14px; max-width: 280px; line-height: 1.6;">Harap Hubungi Admin <b>MAHIKA TRANS</b> untuk validasi atau pemesanan tiket Anda.</p>
-    <a href="https://wa.me/6281211407667" class="btn-admin">
-        <i class="fab fa-whatsapp" style="font-size: 20px;"></i> Hubungi Admin
-    </a>
-</div>
-
-<div id="main-content" class="etiket-container hidden">
-    <div class="etiket-header">
-        <div class="header">
-            <img src="logo.png" alt="Mahika Trans" class="logo">
-        </div>
-        <p class="kode-booking" id="kodeBooking">-</p>
+<div class="etiket-container">
+    
+    <div id="loading-screen" style="text-align:center; margin-top: 50%;">
+        <i class="fas fa-circle-notch fa-spin fa-3x" style="color:#0066AE"></i>
+        <p style="font-weight:600; color:#0066AE">Memvalidasi...</p>
     </div>
 
-    <div class="info-grid">
-        <div class="kolom">
-            <p><i class="fas fa-user"></i> <span id="nama"></span></p>
-            <p><i class="fas fa-phone"></i> <span id="no_hp"></span></p>
-            <p><i class="fas fa-bus"></i> <span id="armada"></span></p> 
-            <p><i class="fas fa-map-marker-alt"></i> <span id="tujuan"></span></p>
-        </div>
-
-        <div class="kolom">
-            <p><i class="fas fa-chair"></i> <span id="no_kursi"></span></p>
-            <p><i class="fas fa-calendar-alt"></i> <span id="tgl"></span></p>
-            <p><i class="fas fa-clock"></i> <span id="jam"></span></p>
-            <p><i class="fa-solid fa-rupiah-sign"></i> <span id="harga"></span></p>
-        </div>
+    <div id="error-screen">
+        <i class="fas fa-bus-alt fa-4x" style="color: #FFD700; margin-bottom: 20px;"></i>
+        <h2 style="font-weight: 800; margin: 0;">KODE SALAH</h2>
+        <p style="font-size: 13px; color: #666;">Harap hubungi Admin Mahika Trans.</p>
+        <a href="https://wa.me/6281234567890" class="btn-admin">
+            <i class="fab fa-whatsapp"></i> WHATSAPP ADMIN
+        </a>
     </div>
 
-    <div class="tear-line"></div>
+    <div id="main-content" class="hidden">
+        <div class="etiket-header">
+            <div class="header">
+                <img src="logo.png" alt="Mahika Trans" class="logo">
+            </div>
+            <p class="kode-booking" id="kodeBooking">MT-000000</p>
+        </div>
 
-    <div class="qr-container">
-        <img id="qrImg" alt="QR Code Booking">
-        <p class="thanks" style="font-size: 10px; margin-top: 10px; color: #666; line-height: 1.4;">Terimakasih atas kepercayaan Anda menggunakan jasa layanan kami.</p>
-    </div>
+        <div class="info-grid">
+            <div class="kolom">
+                <p><i class="fas fa-user"></i> <span id="nama"></span></p>
+                <p><i class="fas fa-phone"></i> <span id="no_hp"></span></p>
+                <p><i class="fas fa-bus"></i> <span id="armada"></span></p> 
+                <p><i class="fas fa-map-marker-alt"></i> <span id="tujuan"></span></p>
+            </div>
 
-    <div class="keterangan" style="margin-top: 5px;">
-        <p><strong>Perhatian:</strong></p>
-        <p>1. Tiket yang sudah dipesan tidak dapat dibatalkan</p>
-        <p>2. Harap datang maksimal 30 menit sebelum jadwal pemberangkatan</p>
-        <p>3. Anak usia 3 tahun atau tinggi badan 90cm wajib membeli tiket</p>
+            <div class="kolom">
+                <p><i class="fas fa-chair"></i> <span id="no_kursi"></span></p>
+                <p><i class="fas fa-calendar-alt"></i> <span id="tgl"></span></p>
+                <p><i class="fas fa-clock"></i> <span id="jam"></span></p>
+                <p><i class="fa-solid fa-rupiah-sign"></i> <span id="harga"></span></p>
+            </div>
+        </div>
+
+        <div class="keterangan">
+            <p style="margin:0"><strong>Perhatian:</strong> Datang 30 menit sebelum jadwal. Tiket tidak dapat dibatalkan.</p>
+        </div>
+
+        <div class="tear-line"></div>
+
+        <div class="barcode-container">
+            <div class="barcode">
+                <img id="qrImg" alt="QR Code">
+                <p class="thanks">TERIMAKASIH ATAS KEPERCAYAAN ANDA</p>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -120,27 +93,18 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// 1. Ambil ID dari URL (?id=) atau dari Path (go.mahikatrans.my.id/MT-123456)
+// AMBIL ID DARI PATH URL
 const params = new URLSearchParams(window.location.search);
-let ticketID = params.get("id") || sessionStorage.getItem('short_id');
+let ticketID = params.get("id") || window.location.pathname.split("/").pop();
 
-// Jika tidak ada di sessionStorage, coba ambil dari path URL langsung
-if (!ticketID) {
-    const path = window.location.pathname.split("/").pop();
-    if (path && path.startsWith("MT-")) {
-        ticketID = path;
-    }
-}
-
-// Fungsi menampilkan layar error
-function showPenyusupUI() {
+function showPenyusup() {
     document.getElementById("loading-screen").classList.add("hidden");
     document.getElementById("main-content").classList.add("hidden");
     document.getElementById("error-screen").style.display = "flex";
 }
 
-if(!ticketID) {
-    showPenyusupUI();
+if(!ticketID || ticketID === "" || ticketID === "index.html") {
+    showPenyusup();
 } else {
     try {
         const docRef = doc(db, "bookings", ticketID);
@@ -158,9 +122,7 @@ if(!ticketID) {
             document.getElementById("armada").innerText = data.armada || "-";
             document.getElementById("tujuan").innerText = data.tujuan || "-";
             document.getElementById("no_kursi").innerText = data.kursi || "-";
-            
-            const jamBersih = data.jam ? data.jam.replace(/WIB/gi, "").trim() : "--:--";
-            document.getElementById("jam").innerText = jamBersih + " WIB";
+            document.getElementById("jam").innerText = (data.jam || "--:--").replace(/WIB/gi, "") + " WIB";
             
             const hargaNominal = (data.nominal || data.harga) ? Number(data.nominal || data.harga).toLocaleString("id-ID") : "0";
             document.getElementById("harga").innerText = hargaNominal;
@@ -168,19 +130,18 @@ if(!ticketID) {
             if(data.tgl) {
                 const dateParts = data.tgl.split("-");
                 const dateObj = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-                const opsi = { day: "2-digit", month: "short", year: "numeric" };
-                document.getElementById("tgl").innerText = dateObj.toLocaleDateString("id-ID", opsi);
+                document.getElementById("tgl").innerText = dateObj.toLocaleDateString("id-ID", { day: "2-digit", month: "short", year: "numeric" });
             }
 
-            // QR Code
-            const currentURL = window.location.origin + "/" + ticketID;
-            document.getElementById("qrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(currentURL)}`;
+            // QR Code (Sesuaikan dengan barcode-container kamu)
+            const finalURL = window.location.origin + "/" + ticketID;
+            document.getElementById("qrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(finalURL)}`;
 
         } else {
-            showPenyusupUI();
+            showPenyusup();
         }
     } catch (e) {
-        showPenyusupUI();
+        showPenyusup();
     }
 }
 </script>
