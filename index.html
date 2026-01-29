@@ -9,7 +9,7 @@
 <link rel="icon" href="../m.png">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-<link rel="stylesheet" href="https://mahikatrans.my.id/stylez.css">
+<link rel="stylesheet" href="../stylez.css">
 <style>
     body { padding-bottom: 50px; margin: 0; background: #f4f7f9; font-family: 'Poppins', sans-serif; }
     
@@ -18,7 +18,7 @@
         justify-content: center; height: 100vh; color: #065084; 
     }
 
-    /* --- SCREEN ERROR UPDATE --- */
+    /* --- SCREEN ERROR (BUS GOYANG) --- */
     #penyusup-screen { 
         position: fixed; inset: 0; background: #065084; 
         display: none; flex-direction: column; align-items: center; 
@@ -88,7 +88,8 @@
 
     <div class="qr-container">
         <img id="qrImg" alt="QR Code Booking">
-        <p class="thanks" style="font-size: 10px; margin-top: 10px; color: #666; line-height: 1.4;">Terimakasih atas kepercayaan Anda menggunakan jasa layanan kami.</p>
+        <p id="labelBooking" style="font-weight: 900; color: #065084; margin: 10px 0 0 0; font-size: 16px;"></p>
+        <p class="thanks" style="font-size: 10px; margin-top: 5px; color: #666; line-height: 1.4;">Terimakasih atas kepercayaan Anda menggunakan jasa layanan kami.</p>
     </div>
 
     <div class="keterangan" style="margin-top: 5px;">
@@ -131,26 +132,22 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Fungsi Ambil ID dari URL (MT-123456)
-function getTicketID() {
-    // Cek dari path (go.mahikatrans.my.id/MT-123456)
-    const path = window.location.pathname.split("/").pop().toUpperCase();
-    if (path.startsWith("MT-")) return path.replace("MT-", "");
-    
-    // Cek dari parameter (?id=MT-123456)
+// Fungsi Ambil 6 Angka Random dari URL
+function getRawID() {
     const params = new URLSearchParams(window.location.search);
     const idParam = params.get("id");
-    if (idParam && idParam.toUpperCase().startsWith("MT-")) return idParam.toUpperCase().replace("MT-", "");
-    
-    return null;
+    if(idParam) return idParam;
+
+    const path = window.location.pathname.split("/").pop();
+    return path && path.length >= 6 ? path : null;
 }
 
-const cleanID = getTicketID();
+const ticketID = getRawID();
 
 function createParticles() {
     const container = document.getElementById('particles');
-    for (let i = 0; i < 30; i++) {
-        const p = document.createElement('div');
+    for (let i = 0; i < 25; i++) {
+        let p = document.createElement('div');
         p.className = 'particle';
         p.style.left = Math.random() * 100 + 'vw';
         p.style.width = p.style.height = Math.random() * 5 + 2 + 'px';
@@ -163,15 +160,14 @@ function tampilkanPenyusup() {
     document.getElementById("loading-screen").classList.add("hidden");
     document.getElementById("penyusup-screen").style.display = "flex";
     createParticles();
-    const sound = document.getElementById("audioError");
-    sound.play().catch(e => console.log("Audio blocked"));
+    document.getElementById("audioError").play().catch(() => {});
 }
 
-if(!cleanID) {
+if(!ticketID) {
     tampilkanPenyusup();
 } else {
     try {
-        const docRef = doc(db, "bookings", cleanID);
+        const docRef = doc(db, "bookings", ticketID);
         const docSnap = await getDoc(docRef);
 
         if(docSnap.exists()){
@@ -179,7 +175,11 @@ if(!cleanID) {
             document.getElementById("loading-screen").classList.add("hidden");
             document.getElementById("main-content").classList.remove("hidden");
             
-            document.getElementById("kodeBooking").innerText = "MT-" + cleanID;
+            // TAMPILAN KODE (DITAMBAH MT-)
+            const fullKode = "MT-" + ticketID;
+            document.getElementById("kodeBooking").innerText = fullKode;
+            document.getElementById("labelBooking").innerText = fullKode;
+            
             document.getElementById("nama").innerText = data.nama || "-";
             document.getElementById("no_hp").innerText = data.wa || "-";
             document.getElementById("armada").innerText = data.armada || "-";
@@ -195,12 +195,11 @@ if(!cleanID) {
             if(data.tgl) {
                 const dateParts = data.tgl.split("-");
                 const dateObj = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-                const opsi = { day: "2-digit", month: "short", year: "numeric" };
-                document.getElementById("tgl").innerText = dateObj.toLocaleDateString("id-ID", opsi);
+                document.getElementById("tgl").innerText = dateObj.toLocaleDateString("id-ID", { day: "2-digit", month: "short", year: "numeric" });
             }
 
-            const currentUrl = window.location.href;
-            document.getElementById("qrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(currentUrl)}`;
+            // QR Code ngelink ke halaman ini sendiri
+            document.getElementById("qrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(window.location.href)}`;
         } else {
             tampilkanPenyusup();
         }
