@@ -1,177 +1,174 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Etiket Mahika Trans</title>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#065084">
-<link rel="icon" href="m.png">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-<link rel="stylesheet" href="https://mahikatrans.my.id/stylez.css">
-<style>
-    body { padding-bottom: 50px; margin: 0; background: #f4f7f9; font-family: 'Poppins', sans-serif; }
-    
-    #loading-screen { 
-        display: flex; flex-direction: column; align-items: center; 
-        justify-content: center; height: 100vh; color: #065084; 
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etiket Digital | Mahika Trans</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#065084">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;900&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --biru-mahika: #065084; 
+            --kuning-mahika: #FFD700; 
+            --putih-gading: #fffdf5; 
+        }
+        body { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background: #f4f7f9; }
 
-    .penyusup-container {
-        display: flex; flex-direction: column; align-items: center;
-        justify-content: center; height: 100vh; text-align: center; padding: 20px;
-    }
-    .penyusup-emoji { font-size: 80px; margin-bottom: 20px; animation: bounce 2s infinite; }
-    .penyusup-title { font-weight: 900; color: #e11d48; font-size: 26px; }
-    .penyusup-text { color: #64748b; margin-top: 10px; font-size: 15px; }
+        /* --- SCREEN ERROR (PENYUSUP/SALAH KODE) --- */
+        #error-screen { 
+            position: fixed; inset: 0; background: var(--biru-mahika); 
+            display: none; flex-direction: column; align-items: center; 
+            justify-content: center; text-align: center; color: var(--putih-gading); 
+            z-index: 1000; overflow: hidden; padding: 20px;
+        }
+        .bus-goyang { 
+            font-size: 100px; color: var(--kuning-mahika); 
+            animation: goyang 0.8s infinite alternate ease-in-out; 
+            margin-bottom: 20px; filter: drop-shadow(0 0 15px rgba(255,215,0,0.3));
+        }
+        @keyframes goyang { 
+            from { transform: rotate(-5deg) translateX(-5px); } 
+            to { transform: rotate(5deg) translateX(5px); } 
+        }
+        
+        .btn-group { display: flex; flex-direction: column; gap: 12px; margin-top: 25px; width: 100%; max-width: 280px; }
 
-    @keyframes bounce {
-        0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-        40% {transform: translateY(-20px);}
-        60% {transform: translateY(-10px);}
-    }
+        .btn-wa-admin {
+            background: var(--kuning-mahika); color: var(--biru-mahika); 
+            padding: 15px; border-radius: 50px; text-decoration: none; 
+            font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2); transition: 0.3s;
+        }
 
-    .qr-container { text-align: center; padding: 10px 20px; }
-    .qr-container img { 
-        width: 130px; height: 130px; margin: 0 auto; 
-        border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        border-radius: 12px;
-    }
+        .btn-web {
+            background: transparent; color: var(--putih-gading); 
+            padding: 14px; border-radius: 50px; text-decoration: none; 
+            font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px;
+            border: 1.5px solid var(--putih-gading); transition: 0.3s;
+        }
+        
+        .btn-wa-admin:active, .btn-web:active { transform: scale(0.95); }
 
-    .hidden { display: none !important; }
-</style>
+        /* Partikel */
+        .particle { position: absolute; background: rgba(255,255,255,0.15); border-radius: 50%; pointer-events: none; animation: fly linear infinite; }
+        @keyframes fly { from { transform: translateY(110vh); } to { transform: translateY(-10vh); } }
+
+        /* --- LOADING & CONTENT --- */
+        #loading { height: 100vh; display: flex; align-items: center; justify-content: center; background: white; }
+        .hidden { display: none !important; }
+        
+        .ticket-container { max-width: 400px; margin: 20px auto; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .ticket-head { background: var(--biru-mahika); padding: 20px; text-align: center; color: var(--kuning-mahika); }
+    </style>
 </head>
-
 <body>
 
-<audio id="audioError" src="https://www.soundjay.com/buttons/sounds/button-10.mp3" preload="auto"></audio>
-
-<div id="loading-screen">
-    <i class="fas fa-circle-notch fa-spin fa-3x"></i>
-    <p style="margin-top:15px; font-weight: 600;">Memvalidasi Tiket...</p>
+<div id="loading">
+    <i class="fas fa-circle-notch fa-spin fa-3x" style="color: var(--biru-mahika);"></i>
 </div>
 
-<div id="main-content" class="etiket-container hidden">
-    <div class="etiket-header">
-        <div class="header">
-            <img src="../logo.png" alt="Mahika Trans" class="logo">
-        </div>
-        <p class="kode-booking" id="kodeBooking">-</p>
-    </div>
-
-    <div class="info-grid">
-        <div class="kolom">
-            <p><i class="fas fa-user"></i> <span id="nama"></span></p>
-            <p><i class="fas fa-phone"></i> <span id="no_hp"></span></p>
-            <p><i class="fas fa-bus"></i> <span id="armada"></span></p> 
-            <p><i class="fas fa-map-marker-alt"></i> <span id="tujuan"></span></p>
-        </div>
-
-        <div class="kolom">
-            <p><i class="fas fa-chair"></i> <span id="no_kursi"></span></p>
-            <p><i class="fas fa-calendar-alt"></i> <span id="tgl"></span></p>
-            <p><i class="fas fa-clock"></i> <span id="jam"></span></p>
-            <p><i class="fa-solid fa-rupiah-sign"></i><span id="harga"></span></p>
-        </div>
-    </div>
-
-    <div class="tear-line"></div>
-
-    <div class="qr-container">
-        <img id="qrImg" alt="QR Code Booking">
-        <p class="thanks" style="font-size: 10px; margin-top: 10px; color: #666; line-height: 1.4;">Terimakasih atas kepercayaan Anda menggunakan jasa layanan kami.</p>
-    </div>
-
-    <div class="keterangan" style="margin-top: 5px;">
-        <p><strong>Perhatian:</strong></p>
-        <p>1. Tiket yang sudah dipesan tidak dapat dibatalkan</p>
-        <p>2. Harap datang maksimal 30 menit sebelum jadwal pemberangkatan</p>
-        <p>3. Anak usia 3 tahun atau tinggi badan 90cm wajib membeli tiket</p>
+<div id="error-screen">
+    <div id="particles"></div>
+    <i class="fas fa-bus bus-goyang"></i>
+    <h2 style="font-weight: 900; margin: 0; line-height: 1.2;">KODE BOOKING<br>TIDAK VALID</h2>
+    <p style="opacity: 0.8; margin-top: 15px; font-size: 14px;">
+        Silakan hubungi admin Mahika Trans.
+    </p>
+    
+    <div class="btn-group">
+        <a href="https://wa.me/628123456789" class="btn-wa-admin">
+            <i class="fab fa-whatsapp" style="font-size: 20px;"></i> HUBUNGI ADMIN
+        </a>
+        <a href="https://mahikatrans.my.id" class="btn-web">
+            <i class="fas fa-globe"></i> KUNJUNGI WEB
+        </a>
     </div>
 </div>
 
-<div id="penyusup-screen" class="hidden">
-    <div class="penyusup-container">
-        <div class="penyusup-emoji">🚫</div>
-        <h1 class="penyusup-title">BELI TIKET DULU, BRO!</h1>
-        <p class="penyusup-text">Tiket tidak valid atau kode booking salah.<br>Silahkan hubungi admin Mahika Trans.</p>
+<div id="main-ticket" class="hidden">
+    <div class="ticket-container">
+        <div class="ticket-head">
+            <h3 style="margin:0">MAHIKA TRANS</h3>
+            <small id="disp-kode" style="color:white"></small>
+        </div>
+        <div style="padding:20px; text-align:center">
+            <p>Halo, <b id="disp-nama"></b>!</p>
+            <hr>
+            <div style="text-align:left; font-size:14px">
+                <p>Tujuan: <span id="disp-tujuan"></span></p>
+                <p>Kursi: <span id="disp-kursi"></span></p>
+                <p>Jam: <span id="disp-jam"></span></p>
+            </div>
+        </div>
     </div>
 </div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-const firebaseConfig = { 
-    apiKey: "AIzaSyAmTAWHcHpolaIHegLceyMqExVgzufJzaU", 
-    authDomain: "mahika-trans.firebaseapp.com", 
-    projectId: "mahika-trans", 
-    storageBucket: "mahika-trans.firebasestorage.app", 
-    appId: "1:1087881066133:web:148d51c88f1de3466ecd9c" 
-};
+    const firebaseConfig = { 
+        apiKey: "AIzaSyAmTAWHcHpolaIHegLceyMqExVgzufJzaU", 
+        authDomain: "mahika-trans.firebaseapp.com", 
+        projectId: "mahika-trans", 
+        storageBucket: "mahika-trans.firebasestorage.app", 
+        appId: "1:1087881066133:web:148d51c88f1de3466ecd9c" 
+    };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-const params = new URLSearchParams(window.location.search);
-const ticketID = params.get("id");
-
-function tampilkanPenyusup() {
-    document.getElementById("loading-screen").classList.add("hidden");
-    document.getElementById("penyusup-screen").classList.remove("hidden");
-    const sound = document.getElementById("audioError");
-    sound.play().catch(e => console.log("Audio play blocked"));
-}
-
-if(!ticketID) {
-    tampilkanPenyusup();
-} else {
-    try {
-        const docRef = doc(db, "bookings", ticketID);
-        const docSnap = await getDoc(docRef);
-
-        if(docSnap.exists()){
-            const data = docSnap.data();
-            
-            document.getElementById("loading-screen").classList.add("hidden");
-            document.getElementById("main-content").classList.remove("hidden");
-            
-            // Masukkan data
-            document.getElementById("kodeBooking").innerText = ticketID.substring(0, 8).toUpperCase();
-            document.getElementById("nama").innerText = data.nama || "-";
-            document.getElementById("no_hp").innerText = data.wa || "-"; // Munculkan No HP
-            document.getElementById("armada").innerText = data.armada || "-"; // Ambil dari inputan
-            document.getElementById("tujuan").innerText = data.tujuan || "-";
-            document.getElementById("no_kursi").innerText = data.kursi || "-"; // Pax dibuang
-            
-            // Fix Jam (Cegah Double WIB)
-            const jamBersih = data.jam ? data.jam.replace(/WIB/gi, "").trim() : "--:--";
-            document.getElementById("jam").innerText = jamBersih + " WIB";
-            
-            // Harga
-            const hargaNominal = data.harga ? Number(data.harga).toLocaleString("id-ID") : "0";
-            document.getElementById("harga").innerText = hargaNominal;
-            
-            // Format Tanggal Indonesia
-            if(data.tgl) {
-                const dateParts = data.tgl.split("-");
-                const dateObj = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-                const opsi = { day: "2-digit", month: "short", year: "numeric" };
-                document.getElementById("tgl").innerText = dateObj.toLocaleDateString("id-ID", opsi);
-            }
-
-            // QR Code (Link etiket)
-            const currentUrl = window.location.href;
-            document.getElementById("qrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(currentUrl)}`;
-
-        } else {
-            tampilkanPenyusup();
-        }
-    } catch (e) {
-        tampilkanPenyusup();
+    function getID() {
+        const path = window.location.pathname.split("/").pop().toUpperCase();
+        if (path.startsWith("MT-")) return path.replace("MT-", "");
+        const params = new URLSearchParams(window.location.search);
+        const idParam = params.get("id");
+        if (idParam && idParam.toUpperCase().startsWith("MT-")) return idParam.toUpperCase().replace("MT-", "");
+        return null;
     }
-}
+
+    const ticketID = getID();
+
+    function createParticles() {
+        const container = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.width = p.style.height = Math.random() * 6 + 2 + 'px';
+            p.style.animationDuration = Math.random() * 5 + 5 + 's';
+            p.style.animationDelay = Math.random() * 5 + 's';
+            container.appendChild(p);
+        }
+    }
+
+    async function init() {
+        if (!ticketID) { showError(); return; }
+        try {
+            const docRef = doc(db, "bookings", ticketID);
+            const snap = await getDoc(docRef);
+            if (snap.exists()) {
+                const data = snap.data();
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('main-ticket').classList.remove('hidden');
+                document.getElementById('disp-nama').innerText = data.nama;
+                document.getElementById('disp-kode').innerText = "MT-" + ticketID;
+                document.getElementById('disp-tujuan').innerText = data.tujuan;
+                document.getElementById('disp-kursi').innerText = data.kursi;
+                document.getElementById('disp-jam').innerText = data.jam;
+            } else { showError(); }
+        } catch (e) { showError(); }
+    }
+
+    function showError() {
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('error-screen').style.display = 'flex';
+        createParticles();
+    }
+
+    init();
 </script>
 </body>
 </html>
