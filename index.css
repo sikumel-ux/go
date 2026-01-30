@@ -1,5 +1,5 @@
 /* =========================
-   BASE STYLES
+   BASE & CONTAINER
 ========================= */
 body {
     font-family: 'Poppins', sans-serif;
@@ -22,7 +22,7 @@ body {
     box-shadow: 0 0 15px rgba(0,0,0,0.1);
 }
 
-/* HEADER: Biru Mentok Atas */
+/* HEADER: Biru Mahika Mentok Atas */
 .etiket-header {
     background: #0066AE;
     padding: 30px 20px 45px 20px;
@@ -40,7 +40,6 @@ body {
     margin-bottom: 25px;
 }
 
-/* KODE BOOKING: Melayang Rapih */
 .kode-booking {
     background: #fff;
     color: #004a80;
@@ -66,7 +65,7 @@ body {
 .kolom { width: 48%; }
 
 .kolom p {
-    font-size: 13px;
+    font-size: 12px;
     padding: 10px;
     background: #fff;
     border-radius: 8px;
@@ -80,31 +79,15 @@ body {
 
 /* TICKET DECORATION */
 .tear-line {
-    width: 100%;
-    height: 10px;
-    margin: 10px 0;
+    width: 100%; height: 10px; margin: 10px 0;
     background: repeating-linear-gradient(90deg, transparent, transparent 8px, #ccc 8px, #ccc 10px);
 }
 
-.barcode-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px 0;
-}
-
-.barcode-img {
-    width: 160px;
-    height: 160px;
-    padding: 10px;
-    background: #fff;
-    border: 1px solid #eee;
-    border-radius: 10px;
-}
-
+.barcode-container { display: flex; flex-direction: column; align-items: center; padding: 10px 0; }
+.barcode-img { width: 160px; height: 160px; padding: 10px; background: #fff; border: 1px solid #eee; border-radius: 10px; }
 .thanks { text-align: center; font-size: 11px; font-weight: 600; padding: 0 20px; color: #333; }
 
-/* KETERANGAN: Style Semula (Abu-abu) */
+/* KETERANGAN: Abu-abu Standard */
 .keterangan {
     font-size: 11px;
     background: #eee;
@@ -117,43 +100,37 @@ body {
 .footer-system { padding: 10px 0 20px 0; text-align: center; }
 
 /* =========================
-   ERROR SCREEN (MAHIKA THEME)
+   ERROR SCREEN (FIXED & NEAT)
 ========================= */
 #error-screen {
     position: fixed;
-    inset: 0;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     background: #0066AE;
-    display: none;
+    display: none; /* Flex via JS */
     flex-direction: column;
     align-items: center;
     justify-content: center;
     color: white;
     text-align: center;
-    z-index: 3000;
+    z-index: 9999;
     overflow: hidden;
     padding: 20px;
+    box-sizing: border-box;
 }
 
-/* Bus Goyang Animation */
-.bus-goyang {
-    font-size: 80px;
-    color: #FFD700;
-    animation: swing 0.8s infinite alternate ease-in-out;
-    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
+#particles {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
 }
 
-@keyframes swing {
-    from { transform: rotate(-6deg) translateY(0); }
-    to { transform: rotate(6deg) translateY(-10px); }
-}
-
-/* Particle Animation */
 .particle {
     position: absolute;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 50%;
-    pointer-events: none;
-    bottom: -10px;
+    bottom: -20px;
     animation: rise linear infinite;
 }
 
@@ -163,25 +140,33 @@ body {
     to { transform: translateY(-110vh); opacity: 0; }
 }
 
-/* WA Button */
+.bus-goyang {
+    font-size: 80px;
+    color: #FFD700;
+    margin-bottom: 20px;
+    animation: swing 0.8s infinite alternate ease-in-out;
+}
+
+@keyframes swing {
+    from { transform: rotate(-6deg); }
+    to { transform: rotate(6deg); }
+}
+
 .btn-wa-admin {
     background: #FFD700;
-    color: #0066AE;
+    color: #0066AE !important;
     text-decoration: none;
-    padding: 15px 30px;
+    padding: 15px 35px;
     border-radius: 50px;
     font-weight: 900;
     font-size: 14px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    transition: 0.3s;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    margin-top: 10px;
 }
-
-.btn-wa-admin:active { transform: scale(0.95); }
 
 /* UTILITY */
 #loading-screen { position: fixed; inset: 0; background: white; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2000; color: #0066AE; }
 .hidden { display: none !important; }
-         
