@@ -31,7 +31,7 @@ body {
 .etiket-header {
     background: linear-gradient(135deg, #0066AE, #005b99);
     color: #fff;
-    padding: 20px;
+    padding: 0px;
     text-align: center;
     border-radius: 0 0 20px 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
