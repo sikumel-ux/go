@@ -1,172 +1,166 @@
 /* =========================
-   BASE & CONTAINER
+   GLOBAL RESET
 ========================= */
+* { box-sizing: border-box; }
 body {
     font-family: 'Poppins', sans-serif;
     background: #f4f4f4;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
+    margin: 0; padding: 0;
+    display: flex; justify-content: center;
     min-height: 100vh;
 }
 
 .etiket-container {
     width: 100%;
-    max-width: 400px;
+    max-width: 450px;
     background: #fff;
-    padding: 0;
     display: flex;
     flex-direction: column;
-    box-sizing: border-box;
-    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
 }
 
-/* HEADER: Biru Mahika Mentok Atas */
+/* =========================
+   HEADER (TIDAK TUMPUK)
+========================= */
 .etiket-header {
     background: #0066AE;
-    padding: 30px 20px 45px 20px;
+    padding: 40px 20px 60px 20px;
     text-align: center;
-    border-radius: 0 0 35px 35px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    border-radius: 0 0 40px 40px;
     position: relative;
 }
 
 .logo {
-    width: 220px;
+    width: 250px;
     height: auto;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
+}
+
+.kode-booking-wrapper {
+    position: absolute;
+    bottom: -25px;
+    left: 0; right: 0;
+    display: flex;
+    justify-content: center;
 }
 
 .kode-booking {
     background: #fff;
     color: #004a80;
     font-weight: 900;
-    font-size: 20px;
-    width: 85%;
-    padding: 12px;
+    font-size: 22px;
+    padding: 12px 40px;
     border-radius: 12px;
-    margin: 0;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     border: 1px solid #eee;
+    margin: 0;
 }
 
-/* INFO GRID */
+/* =========================
+   CONTENT STYLES
+========================= */
 .info-grid {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
-    padding: 25px 20px 10px 20px;
+    padding: 50px 20px 10px 20px;
     gap: 10px;
 }
 
-.kolom { width: 48%; }
+.kolom { width: 49%; }
 
 .kolom p {
-    font-size: 12px;
-    padding: 10px;
+    font-size: 13px;
+    padding: 12px;
     background: #fff;
-    border-radius: 8px;
-    border: 1px solid #eee;
-    margin: 0;
+    border-radius: 10px;
+    border: 1px solid #f0f0f0;
+    margin: 0 0 10px 0;
     display: flex;
     align-items: center;
 }
 
-.kolom i { margin-right: 8px; color: #0066AE; width: 15px; text-align: center; }
+.kolom i { margin-right: 10px; color: #0066AE; width: 15px; text-align: center; }
 
-/* TICKET DECORATION */
 .tear-line {
-    width: 100%; height: 10px; margin: 10px 0;
+    width: 100%; height: 10px; margin: 15px 0;
     background: repeating-linear-gradient(90deg, transparent, transparent 8px, #ccc 8px, #ccc 10px);
 }
 
-.barcode-container { display: flex; flex-direction: column; align-items: center; padding: 10px 0; }
-.barcode-img { width: 160px; height: 160px; padding: 10px; background: #fff; border: 1px solid #eee; border-radius: 10px; }
-.thanks { text-align: center; font-size: 11px; font-weight: 600; padding: 0 20px; color: #333; }
-
-/* KETERANGAN: Abu-abu Standard */
-.keterangan {
-    font-size: 11px;
-    background: #eee;
-    padding: 15px;
-    border-radius: 8px;
-    margin: 15px 20px;
-    color: #000;
+.barcode-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 20px;
 }
 
-.footer-system { padding: 10px 0 20px 0; text-align: center; }
+.qr-box {
+    background: #fff;
+    padding: 15px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    border: 1px solid #eee;
+}
+
+.barcode-img { width: 180px; height: 180px; display: block; }
+
+.thanks { text-align: center; font-size: 12px; font-weight: 600; color: #333; margin-top: 15px; }
+
+.keterangan {
+    font-size: 11px;
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 12px;
+    margin: 20px;
+    color: #444;
+    border-left: 4px solid #0066AE;
+}
+
+.keterangan p { margin: 2px 0; }
+
+.footer-system { padding: 10px 0 30px 0; text-align: center; }
+.footer-system p { margin: 0; font-size: 10px; color: #aaa; }
 
 /* =========================
-   ERROR SCREEN (FIXED & NEAT)
+   ERROR SCREEN (FIXED)
 ========================= */
 #error-screen {
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     background: #0066AE;
-    display: none; /* Flex via JS */
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: white;
-    text-align: center;
-    z-index: 9999;
-    overflow: hidden;
-    padding: 20px;
-    box-sizing: border-box;
+    z-index: 10000;
 }
 
-#particles {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-}
+#particles { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.particle { position: absolute; background: rgba(255,255,255,0.2); border-radius: 50%; bottom: -10px; animation: fly linear infinite; }
 
-.particle {
-    position: absolute;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    bottom: -20px;
-    animation: rise linear infinite;
-}
+@keyframes fly { from { transform: translateY(0); opacity: 0; } 50% { opacity: 0.5; } to { transform: translateY(-110vh); opacity: 0; } }
 
-@keyframes rise {
-    from { transform: translateY(0); opacity: 0; }
-    50% { opacity: 0.5; }
-    to { transform: translateY(-110vh); opacity: 0; }
-}
+.error-content { position: relative; z-index: 2; text-align: center; color: #fff; padding: 20px; }
 
-.bus-goyang {
-    font-size: 80px;
-    color: #FFD700;
-    margin-bottom: 20px;
-    animation: swing 0.8s infinite alternate ease-in-out;
-}
+.bus-goyang { font-size: 80px; color: #FFD700; animation: goyang 0.8s infinite alternate ease-in-out; }
+@keyframes goyang { from { transform: rotate(-8deg); } to { transform: rotate(8deg); } }
 
-@keyframes swing {
-    from { transform: rotate(-6deg); }
-    to { transform: rotate(6deg); }
-}
+.error-title { font-weight: 900; margin: 20px 0 10px 0; line-height: 1.2; }
+.error-text { opacity: 0.8; font-size: 14px; margin-bottom: 30px; }
 
 .btn-wa-admin {
     background: #FFD700;
     color: #0066AE !important;
     text-decoration: none;
-    padding: 15px 35px;
+    padding: 16px 40px;
     border-radius: 50px;
     font-weight: 900;
     font-size: 14px;
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-    margin-top: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
-/* UTILITY */
-#loading-screen { position: fixed; inset: 0; background: white; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2000; color: #0066AE; }
+/* UTILS */
 .hidden { display: none !important; }
+#loading-screen { position: fixed; inset: 0; background: white; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9000; color: #0066AE; }
