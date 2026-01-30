@@ -23,15 +23,15 @@ body {
 }
 
 .etiket-header {
-    background: #0066AE;
-    padding: 30px 20px 25px 20px;
+    background: linear-gradient(135deg, #0066AE, #005b99);
+    color: #fff;
+    padding: 20px;
     text-align: center;
-    border-radius: 0 0 15px 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: relative;
 }
+
 
 .logo {
     width: 220px;
