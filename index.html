@@ -130,7 +130,9 @@
                 document.getElementById("tujuan").innerText = data.tujuan || "-";
                 document.getElementById("no_kursi").innerText = data.kursi || "-";
                 document.getElementById("jam").innerText = (data.jam || "--:--").replace(/WIB/gi, "").trim() + " WIB";
-                document.getElementById("harga").innerText = data.harga ? Number(data.harga).toLocaleString("id-ID") : "0";
+                
+                const hargaNominal = data.harga ? Number(data.harga).toLocaleString("id-ID") : "0";
+                document.getElementById("harga").innerText = hargaNominal;
                 
                 if(data.tgl) {
                     const d = data.tgl.split("-");
@@ -144,5 +146,4 @@
     init();
 </script>
 </body>
-    </html>
-    
+</html>
