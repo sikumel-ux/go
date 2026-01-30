@@ -67,10 +67,10 @@
 <div id="error-screen">
     <div id="particles"></div>
     <i class="fas fa-bus bus-goyang"></i>
-    <h2 style="font-weight: 900; margin: 15px 0 5px 0; line-height: 1.2;">KODE BOOKING<br>TIDAK VALID</h2>
-    <p style="opacity: 0.8; margin-bottom: 25px; font-size: 14px;">Data tidak ditemukan atau tautan salah.</p>
+    <h2 style="font-weight: 900; margin: 10px 0; line-height: 1.2;">KODE BOOKING<br>TIDAK VALID</h2>
+    <p style="opacity: 0.8; margin-bottom: 25px; font-size: 14px; max-width: 280px;">Silakan periksa kembali kode Anda atau hubungi admin kami.</p>
     <a href="https://wa.me/6281211407667" class="btn-wa-admin">
-        <i class="fab fa-whatsapp"></i> HUBUNGI KAMI
+        <i class="fab fa-whatsapp"></i> HUBUNGI ADMIN
     </a>
 </div>
 
@@ -102,14 +102,13 @@
         const errScreen = document.getElementById("error-screen");
         errScreen.style.display = "flex";
         
-        // Buat Partikel Otomatis
         const container = document.getElementById('particles');
         for (let i = 0; i < 20; i++) {
             const p = document.createElement('div');
             p.className = 'particle';
             p.style.left = Math.random() * 100 + 'vw';
-            p.style.width = p.style.height = Math.random() * 6 + 2 + 'px';
-            p.style.animationDuration = Math.random() * 3 + 3 + 's';
+            p.style.width = p.style.height = Math.random() * 5 + 2 + 'px';
+            p.style.animationDuration = Math.random() * 3 + 4 + 's';
             p.style.animationDelay = Math.random() * 5 + 's';
             container.appendChild(p);
         }
@@ -147,5 +146,5 @@
     init();
 </script>
 </body>
-  </html>
-  
+            </html>
+            
