@@ -1,50 +1,109 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Etiket Mahika Trans</title>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#065084">
-<link rel="icon" href="m.png">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-<link rel="stylesheet" href="stylez.css">
-<style>
-    
-    
-    #loading-screen { 
-        display: flex; flex-direction: column; align-items: center; 
-        justify-content: center; height: 100vh; color: #065084; 
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etiket Mahika Trans</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0066AE">
+    <link rel="icon" href="../m.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* =========================
+           GLOBAL (CSS ASLI KAMU)
+        ========================= */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: 
+                url('https://www.transparenttextures.com/patterns/inspiration-geometry.png'),
+                #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-    .penyusup-container {
-        display: flex; flex-direction: column; align-items: center;
-        justify-content: center; height: 100vh; text-align: center; padding: 20px;
-    }
-    .penyusup-emoji { font-size: 80px; margin-bottom: 20px; animation: bounce 2s infinite; }
-    .penyusup-title { font-weight: 900; color: #e11d48; font-size: 26px; }
-    .penyusup-text { color: #64748b; margin-top: 10px; font-size: 15px; }
+        .etiket-container {
+            width: 100%;
+            max-width: 400px;
+            min-height: 100vh;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
 
-    @keyframes bounce {
-        0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-        40% {transform: translateY(-20px);}
-        60% {transform: translateY(-10px);}
-    }
+        /* HEADER */
+        .etiket-header {
+            background: linear-gradient(135deg, #0066AE, #005b99);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
 
-    .qr-container { text-align: center; padding: 10px 20px; }
-    .qr-container img { 
-        width: 140px; height: 140px; margin: 0 auto; 
-        border: 4px solid white; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        border-radius: 12px;
-        background: white;
-    }
+        .header { display: flex; justify-content: center; align-items: center; height: 40px; }
+        .logo { width: 80%; height: auto; }
 
-    .hidden { display: none !important; }
-    .kode-booking { letter-spacing: 2px; }
-</style>
+        /* KODE BOOKING DENGAN MT- TETAP */
+        .kode-booking {
+            position: relative;
+            top: 40px;
+            margin: auto;
+            width: 80%;
+            padding: 12px 20px;
+            background: #fff;
+            color: #004a80;
+            font-weight: bold;
+            font-size: 18px;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            z-index: 10;
+        }
+
+        /* INFO GRID */
+        .info-grid { display: flex; justify-content: space-between; margin-top: 50px; flex-grow: 1; }
+        .kolom { width: 48%; }
+        .kolom p {
+            font-size: 13px; padding: 8px; background: #fff; border-radius: 5px; 
+            margin-bottom: 8px; box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); 
+            display: flex; align-items: center; margin-top: 0;
+        }
+        .kolom i { margin-right: 8px; color: #0066AE; width: 15px; text-align: center; }
+
+        /* TEAR LINE & QR */
+        .tear-line { width: 100%; height: 10px; margin: 15px 0; background: repeating-linear-gradient(90deg, transparent, transparent 8px, #ccc 8px, #ccc 10px); }
+        .barcode-container { width: 100%; display: flex; flex-direction: column; align-items: center; margin-top: 5px; }
+        .barcode-img { width: 140px; height: 140px; padding: 10px; background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        .thanks { text-align: center; font-size: 11px; font-weight: bold; margin-top: 10px; color: #000; }
+
+        /* KETERANGAN & FOOTER */
+        .keterangan { font-size: 11px; background: #eee; padding: 12px; border-radius: 8px; margin-top: 10px; }
+        .footer-system { margin-top: auto; padding: 20px 0 10px 0; text-align: center; }
+
+        /* ERROR SCREEN */
+        #penyusup-screen { position: fixed; inset: 0; background: #0066AE; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #fffdf5; z-index: 3000; overflow: hidden; padding: 20px; }
+        .bus-goyang { font-size: 80px; color: #FFD700; animation: goyang 0.8s infinite alternate ease-in-out; margin-bottom: 20px; }
+        @keyframes goyang { from { transform: rotate(-5deg); } to { transform: rotate(5deg); } }
+        .particle { position: absolute; background: rgba(255,255,255,0.15); border-radius: 50%; pointer-events: none; animation: fly linear infinite; }
+        @keyframes fly { from { transform: translateY(110vh); } to { transform: translateY(-10vh); } }
+        .btn-error { width: 100%; max-width: 250px; padding: 14px; border-radius: 50px; text-decoration: none; font-weight: 700; margin-top: 10px; display: block; }
+        .btn-wa { background: #FFD700; color: #0066AE; }
+        .btn-web { background: transparent; color: white; border: 1.5px solid white; }
+        
+        #loading-screen { position: fixed; inset: 0; background: white; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2000; color: #0066AE; }
+        .hidden { display: none !important; }
+    </style>
 </head>
-
 <body>
 
 <audio id="audioError" src="https://www.soundjay.com/buttons/sounds/button-10.mp3" preload="auto"></audio>
@@ -57,9 +116,9 @@
 <div id="main-content" class="etiket-container hidden">
     <div class="etiket-header">
         <div class="header">
-            <img src="logo.png" alt="Mahika Trans" class="logo">
+            <img src="../logo.png" alt="Mahika Trans" class="logo">
         </div>
-        <p class="kode-booking" id="kodeBooking">-------</p>
+        <p class="kode-booking">MT-<span id="kodeBooking">------</span></p>
     </div>
 
     <div class="info-grid">
@@ -69,7 +128,6 @@
             <p><i class="fas fa-bus"></i> <span id="armada"></span></p> 
             <p><i class="fas fa-map-marker-alt"></i> <span id="tujuan"></span></p>
         </div>
-
         <div class="kolom">
             <p><i class="fas fa-chair"></i> <span id="no_kursi"></span></p>
             <p><i class="fas fa-calendar-alt"></i> <span id="tgl"></span></p>
@@ -80,105 +138,105 @@
 
     <div class="tear-line"></div>
 
-    <div class="qr-container">
-        <img id="qrImg" alt="QR Code Booking">
-        <p class="thanks" style="font-size: 10px; margin-top: 12px; color: #666; line-height: 1.4;">Terimakasih atas kepercayaan Anda menggunakan jasa layanan kami.</p>
+    <div class="barcode-container">
+        <img id="qrImg" class="barcode-img" alt="QR Code Booking">
+        <p style="font-weight: 900; color: #0066AE; margin: 10px 0 0 0; font-size: 16px;">
+            MT-<span id="labelBooking">------</span>
+        </p>
+        <p class="thanks">Terimakasih atas kepercayaan Anda menggunakan jasa layanan kami.</p>
     </div>
 
-    <div class="keterangan" style="margin-top: 5px;">
-        <p><strong>Perhatian:</strong></p>
-        <p>1. Tiket yang sudah dipesan tidak dapat dibatalkan</p>
-        <p>2. Harap datang maksimal 30 menit sebelum jadwal pemberangkatan</p>
-        <p>3. Anak usia 3 tahun atau tinggi badan 90cm wajib membeli tiket</p>
+    <div class="keterangan">
+        <p style="margin:0 0 5px 0"><strong>Perhatian:</strong></p>
+        <p style="margin:0">1. Tiket yang sudah dipesan tidak dapat dibatalkan</p>
+        <p style="margin:0">2. Harap datang maksimal 30 menit sebelum jadwal pemberangkatan</p>
+        <p style="margin:0">3. Anak usia 3 tahun atau tinggi badan 90cm wajib membeli tiket</p>
+    </div>
+
+    <div class="footer-system">
+        <p style="margin: 0; font-size: 10px; color: #999; letter-spacing: 0.5px;">Generated by <b>Mahika Ticketing System</b></p>
+        <p style="margin: 3px 0 0 0; font-size: 9px; color: #bbb; text-transform: uppercase;">&copy; 2026 Mahika Trans. All Rights Reserved.</p>
     </div>
 </div>
 
-<div id="penyusup-screen" class="hidden">
-    <div class="penyusup-container">
-        <div class="penyusup-emoji">🚫</div>
-        
-        <p class="penyusup-text">Tiket tidak valid atau kode booking salah.<br>Silahkan hubungi admin Mahika Trans.</p>
-    </div>
+<div id="penyusup-screen">
+    <div id="particles"></div>
+    <i class="fas fa-bus bus-goyang"></i>
+    <h2 style="font-weight: 900; margin: 0; line-height: 1.2;">KODE BOOKING<br>TIDAK VALID</h2>
+    <p style="opacity: 0.8; margin: 15px 0; font-size: 14px;">Silakan hubungi admin Mahika Trans.</p>
+    <a href="https://wa.me/628123456789" class="btn-error btn-wa"><i class="fab fa-whatsapp"></i> HUBUNGI ADMIN</a>
+    <a href="https://mahikatrans.my.id" class="btn-error btn-web"><i class="fas fa-globe"></i> KUNJUNGI WEB</a>
 </div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-const firebaseConfig = { 
-    apiKey: "AIzaSyAmTAWHcHpolaIHegLceyMqExVgzufJzaU", 
-    authDomain: "mahika-trans.firebaseapp.com", 
-    projectId: "mahika-trans", 
-    storageBucket: "mahika-trans.firebasestorage.app", 
-    appId: "1:1087881066133:web:148d51c88f1de3466ecd9c" 
-};
+    const firebaseConfig = { 
+        apiKey: "AIzaSyAmTAWHcHpolaIHegLceyMqExVgzufJzaU", 
+        authDomain: "mahika-trans.firebaseapp.com", 
+        projectId: "mahika-trans", 
+        storageBucket: "mahika-trans.firebasestorage.app", 
+        appId: "1:1087881066133:web:148d51c88f1de3466ecd9c" 
+    };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-const params = new URLSearchParams(window.location.search);
-const ticketID = params.get("id");
-
-function tampilkanPenyusup() {
-    document.getElementById("loading-screen").classList.add("hidden");
-    document.getElementById("penyusup-screen").classList.remove("hidden");
-    const sound = document.getElementById("audioError");
-    sound.play().catch(e => console.log("Audio play blocked"));
-}
-
-if(!ticketID) {
-    tampilkanPenyusup();
-} else {
-    try {
-        const docRef = doc(db, "bookings", ticketID);
-        const docSnap = await getDoc(docRef);
-
-        if(docSnap.exists()){
-            const data = docSnap.data();
-            
-            // Generate Kode Booking Pendek (Contoh: MT-A1B2)
-            // Di sini kita ambil 8 karakter pertama dari Firestore ID
-            const shortID = ticketID.substring(0, 8).toUpperCase();
-            
-            document.getElementById("loading-screen").classList.add("hidden");
-            document.getElementById("main-content").classList.remove("hidden");
-            
-            // Masukkan data ke Elemen
-            document.getElementById("kodeBooking").innerText = shortID;
-            document.getElementById("nama").innerText = data.nama || "-";
-            document.getElementById("no_hp").innerText = data.wa || "-";
-            document.getElementById("armada").innerText = data.armada || "-"; 
-            document.getElementById("tujuan").innerText = data.tujuan || "-";
-            document.getElementById("no_kursi").innerText = data.kursi || "-";
-            
-            // Fix Jam
-            const jamBersih = data.jam ? data.jam.replace(/WIB/gi, "").trim() : "--:--";
-            document.getElementById("jam").innerText = jamBersih + " WIB";
-            
-            // Harga
-            const hargaNominal = data.harga ? Number(data.harga).toLocaleString("id-ID") : "0";
-            document.getElementById("harga").innerText = hargaNominal;
-            
-            // Format Tanggal Indonesia
-            if(data.tgl) {
-                const dateParts = data.tgl.split("-");
-                const dateObj = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-                const opsi = { day: "2-digit", month: "short", year: "numeric" };
-                document.getElementById("tgl").innerText = dateObj.toLocaleDateString("id-ID", opsi);
-            }
-
-            // QR CODE CUSTOM: Hanya berisi ID Pendek agar tidak ruwet
-            document.getElementById("qrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${shortID}`;
-
-        } else {
-            tampilkanPenyusup();
-        }
-    } catch (e) {
-        console.error(e);
-        tampilkanPenyusup();
+    function getTicketID() {
+        const params = new URLSearchParams(window.location.search);
+        let id = params.get("id") || window.location.pathname.split("/").pop();
+        return id ? id.toUpperCase().replace("MT-", "") : null;
     }
-}
+
+    const cleanID = getTicketID();
+
+    function showError() {
+        document.getElementById("loading-screen").classList.add("hidden");
+        document.getElementById("penyusup-screen").style.display = "flex";
+        const container = document.getElementById('particles');
+        for (let i = 0; i < 25; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.width = p.style.height = Math.random() * 5 + 2 + 'px';
+            p.style.animationDuration = Math.random() * 5 + 5 + 's';
+            container.appendChild(p);
+        }
+        document.getElementById("audioError").play().catch(() => {});
+    }
+
+    async function init() {
+        if(!cleanID) { showError(); return; }
+        try {
+            const docSnap = await getDoc(doc(db, "bookings", cleanID));
+            if(docSnap.exists()){
+                const data = docSnap.data();
+                document.getElementById("loading-screen").classList.add("hidden");
+                document.getElementById("main-content").classList.remove("hidden");
+                
+                // ISI KODE (Script hanya ngisi ID angkanya saja)
+                document.getElementById("kodeBooking").innerText = cleanID;
+                document.getElementById("labelBooking").innerText = cleanID;
+
+                document.getElementById("nama").innerText = data.nama || "-";
+                document.getElementById("no_hp").innerText = data.wa || "-";
+                document.getElementById("armada").innerText = data.armada || "-";
+                document.getElementById("tujuan").innerText = data.tujuan || "-";
+                document.getElementById("no_kursi").innerText = data.kursi || "-";
+                document.getElementById("jam").innerText = (data.jam || "--:--").replace(/WIB/gi, "").trim() + " WIB";
+                document.getElementById("harga").innerText = data.harga ? Number(data.harga).toLocaleString("id-ID") : "0";
+                
+                if(data.tgl) {
+                    const d = data.tgl.split("-");
+                    const dt = new Date(d[0], d[1]-1, d[2]);
+                    document.getElementById("tgl").innerText = dt.toLocaleDateString("id-ID", {day:"2-digit", month:"short", year:"numeric"});
+                }
+                document.getElementById("qrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(window.location.href)}`;
+            } else { showError(); }
+        } catch (e) { showError(); }
+    }
+    init();
 </script>
 </body>
-  </html>
-  
+</html>
