@@ -1,5 +1,5 @@
 /* =========================
-   CSS ASLI MILIKMU (REVISI)
+   CSS ORIGINAL MAHIKA (FINAL)
 ========================= */
 body {
     font-family: 'Poppins', sans-serif;
@@ -13,14 +13,13 @@ body {
     width: 100%; max-width: 400px; height: 100vh;
     background: #fff; padding: 20px; border-radius: 10px;
     display: flex; flex-direction: column; overflow: hidden;
-    position: relative; /* Wajib untuk floating button */
 }
 
-/* HEADER REVISI: Padding bawah ditambah biar logo aman */
+/* HEADER: Logo aman dari card */
 .etiket-header {
     background: linear-gradient(135deg, #0066AE, #005b99);
     color: #fff; 
-    padding: 20px 20px 65px 20px; /* Ditambah biar gak numpuk logo */
+    padding: 20px 20px 70px 20px; /* Ditambah biar logo gak kena hajar card */
     text-align: center;
     border-radius: 0 0 20px 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: relative; margin-bottom: 40px;
@@ -29,7 +28,6 @@ body {
 .header { display: flex; justify-content: center; align-items: center; height: 40px; }
 .logo { width: 80%; height: auto; }
 
-/* Card MT-XXXXX */
 .kode-booking {
     position: absolute; bottom: -25px; left: 10%; width: 80%;
     padding: 12px 20px; background: #fff; color: #004a80;
@@ -41,11 +39,11 @@ body {
 .nav-top { position: absolute; top: 15px; left: 15px; }
 .nav-top i { color: #fff; font-size: 18px; }
 
-.info-grid { display: flex; justify-content: space-between; margin-top: 20px; }
+.info-grid { display: flex; justify-content: space-between; margin-top: 15px; }
 .kolom { width: 48%; }
 .kolom p {
     font-size: 12px; padding: 8px; background: #fff; border-radius: 5px;
-    margin-bottom: 5px; box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 5px; box-shadow: 1px 1px 3px rgba(0,0,0,0.05);
     display: flex; align-items: center; border: 1px solid #f0f0f0;
 }
 .kolom i { margin-right: 8px; color: #0066AE; width: 14px; }
@@ -55,56 +53,51 @@ body {
     border-top: 2px dashed #ccc;
 }
 
-.barcode-container { width: 100%; display: flex; justify-content: center; }
+/* BARCODE & BUS GOYANG */
+.barcode-container { width: 100%; display: flex; justify-content: center; margin-top: 5px; }
 .barcode {
-    width: 100%; text-align: center; padding: 10px; background: #fff;
-    border-radius: 8px; border: 1px solid #eee;
+    width: 100%; text-align: center; padding: 15px; background: #fff;
+    border-radius: 10px; border: 1px solid #eee; position: relative;
 }
 .barcode img { width: 140px; height: 140px; }
 
-.thanks { text-align: center; font-size: 11px; font-weight: bold; margin: 10px 0; color: #333; }
+.home-wrapper { display: flex; justify-content: center; margin-top: 5px; }
+.bus-home-link {
+    background: #FFD700; color: #0066AE; width: 45px; height: 45px;
+    border-radius: 50%; display: flex; justify-content: center; align-items: center;
+    text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 20px;
+    border: 3px solid #fff;
+}
 
-/* KETERANGAN REVISI: Biru di bawah */
+.bus-goyang-mini { animation: swing-mini 0.8s infinite alternate ease-in-out; }
+@keyframes swing-mini { 
+    from { transform: rotate(-10deg); } 
+    to { transform: rotate(10deg); } 
+}
+
+.thanks { text-align: center; font-size: 11px; font-weight: bold; margin: 8px 0; color: #333; }
+
+/* KETERANGAN: Biru di bawah */
 .keterangan { 
-    font-size: 9px; 
-    background: #f9f9f9; 
-    padding: 10px; 
-    border-radius: 5px; 
-    border-bottom: 4px solid #0066AE; /* Pindah ke bawah */
-    margin-top: 5px;
+    font-size: 9px; background: #f9f9f9; padding: 10px; 
+    border-radius: 5px; border-bottom: 4px solid #0066AE; margin-top: 5px;
 }
 
 .footer-extra { text-align: center; margin-top: auto; padding: 10px 0; }
 .footer-extra p { margin: 0; font-size: 9px; color: #bbb; text-transform: uppercase; }
 
-/* FLOATING BUS BUTTON */
-.btn-home-bus {
-    position: absolute; bottom: 15px; right: 15px;
-    width: 40px; height: 40px; background: #FFD700;
-    color: #0066AE; border-radius: 50%;
-    display: flex; justify-content: center; align-items: center;
-    text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    font-size: 18px; z-index: 100;
-}
-
-/* ERROR SCREEN (TETAP SAMA) */
+/* ERROR SCREEN */
 #error-screen {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
     background: #0066AE; display: none; flex-direction: column;
     align-items: center; justify-content: center; z-index: 99999;
 }
-#particles { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
-.error-content { position: relative; z-index: 2; text-align: center; color: #fff; }
-.bus-goyang { font-size: 80px; color: #FFD700; animation: swing 0.8s infinite alternate ease-in-out; margin-bottom: 20px; display: block; }
+.bus-goyang { font-size: 80px; color: #FFD700; animation: swing 0.8s infinite alternate ease-in-out; margin-bottom: 20px; }
 @keyframes swing { from { transform: rotate(-8deg); } to { transform: rotate(8deg); } }
 .btn-wa-admin {
     background: #FFD700; color: #0066AE !important; text-decoration: none;
     padding: 15px 35px; border-radius: 50px; font-weight: 900;
-    display: inline-flex; align-items: center; gap: 10px; margin-top: 20px;
 }
-.particle { position: absolute; background: rgba(255,255,255,0.2); border-radius: 50%; bottom: -10px; animation: rise linear infinite; }
-@keyframes rise { from { transform: translateY(0); opacity: 0; } to { transform: translateY(-110vh); opacity: 0; } }
-
-#loading-screen { position: fixed; inset: 0; background: white; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9000; color: #0066AE; }
 .hidden { display: none !important; }
-                 
+#loading-screen { position: fixed; inset: 0; background: white; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9000; color: #0066AE; }
+   
