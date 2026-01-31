@@ -1,5 +1,5 @@
 /* =========================
-   CSS ORIGINAL MAHIKA (FINAL)
+   CSS MAHIKA - REVISI TOTAL
 ========================= */
 body {
     font-family: 'Poppins', sans-serif;
@@ -13,13 +13,14 @@ body {
     width: 100%; max-width: 400px; height: 100vh;
     background: #fff; padding: 20px; border-radius: 10px;
     display: flex; flex-direction: column; overflow: hidden;
+    box-sizing: border-box;
 }
 
-/* HEADER: Logo aman dari card */
+/* HEADER: Logo aman */
 .etiket-header {
     background: linear-gradient(135deg, #0066AE, #005b99);
     color: #fff; 
-    padding: 20px 20px 70px 20px; /* Ditambah biar logo gak kena hajar card */
+    padding: 20px 20px 70px 20px;
     text-align: center;
     border-radius: 0 0 20px 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: relative; margin-bottom: 40px;
@@ -28,76 +29,80 @@ body {
 .header { display: flex; justify-content: center; align-items: center; height: 40px; }
 .logo { width: 80%; height: auto; }
 
+/* KODE BOOKING: FIX CENTER */
 .kode-booking {
-    position: absolute; bottom: -25px; left: 10%; width: 80%;
+    position: absolute; 
+    bottom: -25px; 
+    left: 50%;
+    transform: translateX(-50%); /* Garansi tengah di semua device */
+    width: 80%;
     padding: 12px 20px; background: #fff; color: #004a80;
     font-weight: bold; font-size: 18px; border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); text-align: center; z-index: 10;
-    margin: 0;
+    margin: 0; white-space: nowrap;
 }
 
 .nav-top { position: absolute; top: 15px; left: 15px; }
 .nav-top i { color: #fff; font-size: 18px; }
 
-.info-grid { display: flex; justify-content: space-between; margin-top: 15px; }
+/* INFO GRID */
+.info-grid { display: flex; justify-content: space-between; margin-top: 10px; }
 .kolom { width: 48%; }
 .kolom p {
-    font-size: 12px; padding: 8px; background: #fff; border-radius: 5px;
-    margin-bottom: 5px; box-shadow: 1px 1px 3px rgba(0,0,0,0.05);
-    display: flex; align-items: center; border: 1px solid #f0f0f0;
+    font-size: 12px; padding: 6px; background: #fff; border-radius: 5px;
+    margin-bottom: 5px; border: 1px solid #f0f0f0;
+    display: flex; align-items: center;
 }
 .kolom i { margin-right: 8px; color: #0066AE; width: 14px; }
 
+/* TEAR LINE: GARIS VERTIKAL */
 .tear-line {
-    width: 100%; height: 2px; margin: 10px 0;
-    border-top: 2px dashed #ccc;
+    width: 100%; height: 12px; margin: 10px 0;
+    background-image: linear-gradient(to right, #ccc 2px, transparent 2px);
+    background-size: 10px 100%;
 }
 
-/* BARCODE & BUS GOYANG */
-.barcode-container { width: 100%; display: flex; justify-content: center; margin-top: 5px; }
-.barcode {
-    width: 100%; text-align: center; padding: 15px; background: #fff;
-    border-radius: 10px; border: 1px solid #eee; position: relative;
+/* QR CARD KOMPAK */
+.barcode-container {
+    width: 100%; display: flex; justify-content: center; margin: 5px 0;
 }
-.barcode img { width: 140px; height: 140px; }
-
-.home-wrapper { display: flex; justify-content: center; margin-top: 5px; }
-.bus-home-link {
-    background: #FFD700; color: #0066AE; width: 45px; height: 45px;
-    border-radius: 50%; display: flex; justify-content: center; align-items: center;
-    text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 20px;
-    border: 3px solid #fff;
+.barcode-card {
+    background: #fff; padding: 10px; border-radius: 10px;
+    border: 1px solid #eee; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    display: inline-block; text-align: center;
 }
+.barcode-card img { width: 115px; height: 115px; display: block; }
 
-.bus-goyang-mini { animation: swing-mini 0.8s infinite alternate ease-in-out; }
-@keyframes swing-mini { 
-    from { transform: rotate(-10deg); } 
-    to { transform: rotate(10deg); } 
-}
+/* BUS HITAM MINIMALIS */
+.home-wrapper { margin-top: 8px; border-top: 1px solid #eee; padding-top: 5px; }
+.bus-home-link { color: #000; text-decoration: none; font-size: 18px; }
 
-.thanks { text-align: center; font-size: 11px; font-weight: bold; margin: 8px 0; color: #333; }
+.thanks { text-align: center; font-size: 10px; font-weight: bold; margin: 8px 0; color: #333; }
 
-/* KETERANGAN: Biru di bawah */
+/* KETERANGAN: SHADOW HITAM */
 .keterangan { 
     font-size: 9px; background: #f9f9f9; padding: 10px; 
-    border-radius: 5px; border-bottom: 4px solid #0066AE; margin-top: 5px;
+    border-radius: 5px; box-shadow: 0 3px 8px rgba(0,0,0,0.15); 
+    margin-top: 8px; border: none;
 }
 
-.footer-extra { text-align: center; margin-top: auto; padding: 10px 0; }
+.footer-extra { text-align: center; margin-top: auto; padding-bottom: 5px; }
 .footer-extra p { margin: 0; font-size: 9px; color: #bbb; text-transform: uppercase; }
 
 /* ERROR SCREEN */
 #error-screen {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: #0066AE; display: none; flex-direction: column;
-    align-items: center; justify-content: center; z-index: 99999;
+    position: fixed; inset: 0; background: #0066AE; 
+    display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 99999;
 }
-.bus-goyang { font-size: 80px; color: #FFD700; animation: swing 0.8s infinite alternate ease-in-out; margin-bottom: 20px; }
-@keyframes swing { from { transform: rotate(-8deg); } to { transform: rotate(8deg); } }
+.bus-error { font-size: 80px; color: #FFD700; margin-bottom: 20px; }
+.error-content { text-align: center; color: white; }
 .btn-wa-admin {
     background: #FFD700; color: #0066AE !important; text-decoration: none;
     padding: 15px 35px; border-radius: 50px; font-weight: 900;
 }
+.particle { position: absolute; background: rgba(255,255,255,0.2); border-radius: 50%; bottom: -10px; animation: rise linear infinite; }
+@keyframes rise { from { transform: translateY(0); opacity: 0; } to { transform: translateY(-110vh); opacity: 0; } }
+
+#loading-screen { position: fixed; inset: 0; background: white; display: flex; align-items: center; justify-content: center; z-index: 9000; color: #0066AE; }
 .hidden { display: none !important; }
-#loading-screen { position: fixed; inset: 0; background: white; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9000; color: #0066AE; }
-   
+       
