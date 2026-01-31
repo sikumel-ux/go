@@ -1,5 +1,5 @@
 /* =========================
-   CSS ASLI MILIKMU (DENGAN TAMBAHAN FOOTER)
+   CSS ASLI MILIKMU (REVISI)
 ========================= */
 body {
     font-family: 'Poppins', sans-serif;
@@ -12,61 +12,82 @@ body {
 .etiket-container {
     width: 100%; max-width: 400px; height: 100vh;
     background: #fff; padding: 20px; border-radius: 10px;
-    display: flex; flex-direction: column; overflow-y: auto;
+    display: flex; flex-direction: column; overflow: hidden;
+    position: relative; /* Wajib untuk floating button */
 }
 
+/* HEADER REVISI: Padding bawah ditambah biar logo aman */
 .etiket-header {
     background: linear-gradient(135deg, #0066AE, #005b99);
-    color: #fff; padding: 20px; text-align: center;
+    color: #fff; 
+    padding: 20px 20px 65px 20px; /* Ditambah biar gak numpuk logo */
+    text-align: center;
     border-radius: 0 0 20px 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    position: relative; margin-bottom: 20px;
+    position: relative; margin-bottom: 40px;
 }
 
 .header { display: flex; justify-content: center; align-items: center; height: 40px; }
 .logo { width: 80%; height: auto; }
 
+/* Card MT-XXXXX */
 .kode-booking {
     position: absolute; bottom: -25px; left: 10%; width: 80%;
     padding: 12px 20px; background: #fff; color: #004a80;
     font-weight: bold; font-size: 18px; border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); text-align: center; z-index: 10;
+    margin: 0;
 }
 
-.nav-top { position: absolute; top: 10px; left: 10px; }
+.nav-top { position: absolute; top: 15px; left: 15px; }
 .nav-top i { color: #fff; font-size: 18px; }
 
-.info-grid { display: flex; justify-content: space-between; margin-top: 30px; }
+.info-grid { display: flex; justify-content: space-between; margin-top: 20px; }
 .kolom { width: 48%; }
 .kolom p {
-    font-size: 13px; padding: 8px; background: #fff; border-radius: 5px;
+    font-size: 12px; padding: 8px; background: #fff; border-radius: 5px;
     margin-bottom: 5px; box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
     display: flex; align-items: center; border: 1px solid #f0f0f0;
 }
 .kolom i { margin-right: 8px; color: #0066AE; width: 14px; }
 
 .tear-line {
-    width: 100%; height: 2px; margin: 15px 0;
+    width: 100%; height: 2px; margin: 10px 0;
     border-top: 2px dashed #ccc;
 }
 
-.barcode-container { width: 100%; display: flex; justify-content: center; margin-top: 5px; }
+.barcode-container { width: 100%; display: flex; justify-content: center; }
 .barcode {
-    width: 100%; text-align: center; padding: 15px; background: #fff;
+    width: 100%; text-align: center; padding: 10px; background: #fff;
     border-radius: 8px; border: 1px solid #eee;
 }
-.barcode img { width: 150px; height: 150px; }
+.barcode img { width: 140px; height: 140px; }
 
 .thanks { text-align: center; font-size: 11px; font-weight: bold; margin: 10px 0; color: #333; }
 
-.keterangan { font-size: 10px; background: #f9f9f9; padding: 10px; border-radius: 5px; border-left: 3px solid #0066AE; }
-
-/* FOOTER GENERATED & COPYRIGHT (TAMBAHAN) */
-.footer-extra {
-    text-align: center; margin-top: auto; padding: 15px 0 5px 0;
+/* KETERANGAN REVISI: Biru di bawah */
+.keterangan { 
+    font-size: 9px; 
+    background: #f9f9f9; 
+    padding: 10px; 
+    border-radius: 5px; 
+    border-bottom: 4px solid #0066AE; /* Pindah ke bawah */
+    margin-top: 5px;
 }
-.footer-extra p { margin: 0; font-size: 9px; color: #bbb; text-transform: uppercase; letter-spacing: 0.5px; }
 
-/* SYSTEM ERROR STYLE (TIDAK BERUBAH) */
+.footer-extra { text-align: center; margin-top: auto; padding: 10px 0; }
+.footer-extra p { margin: 0; font-size: 9px; color: #bbb; text-transform: uppercase; }
+
+/* FLOATING BUS BUTTON */
+.btn-home-bus {
+    position: absolute; bottom: 15px; right: 15px;
+    width: 40px; height: 40px; background: #FFD700;
+    color: #0066AE; border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    font-size: 18px; z-index: 100;
+}
+
+/* ERROR SCREEN (TETAP SAMA) */
 #error-screen {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
     background: #0066AE; display: none; flex-direction: column;
@@ -86,3 +107,4 @@ body {
 
 #loading-screen { position: fixed; inset: 0; background: white; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9000; color: #0066AE; }
 .hidden { display: none !important; }
+                 
