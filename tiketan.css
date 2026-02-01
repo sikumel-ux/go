@@ -1,0 +1,87 @@
+/* =========================
+   GABUNGAN CSS TERKALIBRASI
+========================= */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: url('https://www.transparenttextures.com/patterns/inspiration-geometry.png'), #f4f4f4;
+    margin: 0; padding: 0;
+    display: flex; justify-content: center; align-items: center;
+    height: 100vh;
+}
+
+.etiket-container {
+    width: 100%; max-width: 400px; height: 100vh;
+    background: #fff; padding: 20px; border-radius: 10px;
+    display: flex; flex-direction: column; box-sizing: border-box;
+}
+
+.etiket-header {
+    background: linear-gradient(135deg, #0066AE, #005b99);
+    color: #fff; padding: 20px; text-align: center;
+    border-radius: 0 0 20px 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.header { display: flex; justify-content: center; align-items: center; height: 40px; }
+.header img { width: 80%; height: auto; }
+
+.kode-booking {
+    position: relative; top: 40px; margin: auto; width: 80%;
+    padding: 12px 20px; background: #fff; color: #004a80;
+    font-weight: bold; font-size: 18px; border-radius: 0 0 10px 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); text-align: center; z-index: 10;
+}
+
+.info-grid { display: flex; justify-content: space-between; margin-top: 45px; }
+.kolom { width: 48%; }
+.kolom p {
+    font-size: 11px; padding: 8px; background: #fff; border-radius: 5px;
+    margin-bottom: 5px; box-shadow: 1px 1px 3px rgba(0,0,0,0.05);
+    display: flex; align-items: center; border: 1px solid #f0f0f0;
+}
+.kolom i { margin-right: 8px; color: #0066AE; }
+
+.tear-line {
+    width: 100%; height: 10px; margin: 10px 0;
+    background: repeating-linear-gradient(90deg, transparent, transparent 8px, #ccc 8px, #ccc 10px);
+}
+
+.barcode-container { width: 100%; display: flex; justify-content: center; align-items: center; }
+.barcode {
+    width: 85%; text-align: center; padding: 15px; background: #fff;
+    border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border: 1px solid #eee;
+}
+.barcode img { width: 110px; height: 110px; }
+
+/* BUS GOYANG HITAM */
+.home-wrapper { margin-top: 10px; border-top: 1px solid #eee; padding-top: 10px; }
+.bus-home-link { color: #000; text-decoration: none; font-size: 22px; display: inline-block; }
+.bus-goyang-mini { animation: swing-mini 1s infinite alternate ease-in-out; display: inline-block; }
+@keyframes swing-mini { from { transform: rotate(-12deg); } to { transform: rotate(12deg); } }
+
+.keterangan {
+    font-size: 10px; background: #f9f9f9; padding: 10px; border-radius: 5px;
+    margin-top: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.thanks { text-align: center; font-size: 11px; font-weight: bold; margin: 10px 0; color: #333; }
+.footer-bottom { text-align: center; margin-top: auto; padding: 5px; font-size: 9px; color: #bbb; }
+
+/* LOADING & ERROR SCREEN */
+#loading-screen { position: fixed; inset: 0; background: white; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; }
+#error-screen {
+    position: fixed; inset: 0; background: #0066AE; display: none;
+    flex-direction: column; align-items: center; justify-content: center; z-index: 99999;
+}
+.error-content { text-align: center; color: white; z-index: 2; }
+.bus-goyang-error { font-size: 80px; color: #FFD700; animation: swing-mini 0.6s infinite alternate; display: block; margin-bottom: 20px; }
+.btn-wa-admin {
+    background: #FFD700; color: #0066AE !important; text-decoration: none;
+    padding: 15px 35px; border-radius: 50px; font-weight: 900; display: inline-flex; align-items: center; gap: 10px;
+}
+#particles { position: absolute; inset: 0; }
+.particle { position: absolute; background: rgba(255,255,255,0.2); border-radius: 50%; bottom: -10px; animation: rise linear infinite; }
+@keyframes rise { from { transform: translateY(0); opacity: 0; } to { transform: translateY(-110vh); opacity: 0; } }
+.hidden { display: none !important; }
+.nav-top { position: absolute; top: 15px; left: 15px; color: #fff; }
+            
