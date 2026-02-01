@@ -41,7 +41,7 @@ body {
 .info-grid { display: flex; justify-content: space-between; margin-top: 10px; }
 .kolom { width: 48%; }
 .kolom p {
-    font-size: 11px; padding: 6px; background: #fff; border-radius: 5px;
+    font-size: 12px; padding: 6px; background: #fff; border-radius: 5px;
     margin-bottom: 5px; border: 1px solid #f0f0f0; display: flex; align-items: center;
 }
 .kolom i { margin-right: 8px; color: #0066AE; width: 14px; }
