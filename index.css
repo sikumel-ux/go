@@ -2,13 +2,31 @@ body { font-family: 'Poppins', sans-serif; background: #f4f4f4; margin: 0; paddi
 .etiket-container { width: 100%; max-width: 420px; background: #fff; display: flex; flex-direction: column; position: relative; }
 .hidden { display: none !important; }
 
-/* HEADER SLIM & CENTER CARD */
-.etiket-header { background: #0066AE; padding: 20px 20px 20px; text-align: center; border-radius: 0 0 30px 30px; position: relative; }
-.header-logo-box img { width: 220px; max-width: 80%; height: auto; }
-.kode-booking-card { position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); background: #FFD700; color: #004a80; width: 70%; padding: 10px; font-weight: 900; font-size: 18px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); text-align: center; z-index: 10; }
+/* HEADER LEBIH SLIM */
+.etiket-header {
+    background: #0066AE;
+    padding: 25px 20px 45px; /* Padding atas & bawah dikecilkan */
+    text-align: center;
+    border-radius: 0 0 30px 30px;
+    position: relative;
+}
 
-/* INFO GRID */
-.info-grid { display: flex; justify-content: space-between; padding: 40px 15px 10px; gap: 8px; }
+/* LOGO LEBIH KECIL */
+.header-logo-box img {
+    width: 160px; /* Ukuran logo dikecilkan (sebelumnya 250px) */
+    max-width: 60%;
+    height: auto;
+}
+
+/* PENYESUAIAN JARAK GRID */
+.info-grid {
+    display: flex;
+    justify-content: space-between;
+    padding: 35px 15px 10px; /* Jarak atas diturunkan sedikit agar tidak tabrakan dengan card kuning */
+    gap: 10px;
+}
+
+
 .kolom { width: 49%; }
 .kolom p { font-size: 11px; background: #fff; padding: 8px; border-radius: 5px; border: 1px solid #f0f0f0; display: flex; align-items: center; margin-bottom: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
 .kolom i { margin-right: 8px; color: #0066AE; width: 12px; }
