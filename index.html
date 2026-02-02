@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etiket Mahika Trans</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -47,7 +47,7 @@
 
     <div class="barcode-section">
         <div class="barcode-card">
-            <img id="qrImg" alt="QR Code">
+            <img id="qrImg" alt="QR">
             <p class="thanks">Terimakasih atas kepercayaan Anda menggunakan jasa layanan kami.</p>
         </div>
         <div class="bus-footer">
@@ -58,15 +58,10 @@
     <div class="keterangan-box">
         <p><strong>Perhatian:</strong></p>
         <ul>
-            <li>Tiket yang sudah dipesan tidak dapat dibatalkan.</li>
-            <li>Harap datang maksimal 30 menit sebelum jadwal.</li>
-            <li>Anak usia 3 tahun wajib membeli tiket.</li>
+            <li>Tiket yang sudah dipesan tidak dapat dibatalkan</li>
+            <li>Harap datang maksimal 30 menit sebelum jadwal</li>
+            <li>Anak usia 3 tahun wajib membeli tiket</li>
         </ul>
-    </div>
-
-    <div class="footer-bottom">
-        
-        <p>&copy; 2026 Mahika Trans. All Rights Reserved.</p>
     </div>
 </div>
 
@@ -74,7 +69,6 @@
     <div class="error-content">
         <i class="fas fa-bus-alt fa-4x bus-goyang-error"></i>
         <h2>KODE TIDAK VALID</h2>
-        <p>Data tidak ditemukan atau tautan salah.</p>
         <a href="https://wa.me/6281211407667" class="btn-wa">HUBUNGI ADMIN</a>
     </div>
 </div>
@@ -110,15 +104,8 @@
                 document.getElementById("armada").innerText = d.armada || "-";
                 document.getElementById("tujuan").innerText = d.tujuan || "-";
                 document.getElementById("no_kursi").innerText = d.kursi || "-";
-                document.getElementById("jam").innerText = (d.jam || "--:--").replace(/WIB/gi, "").trim() + " WIB";
+                document.getElementById("jam").innerText = (d.jam || "--:--").replace(/WIB/gi, "") + " WIB";
                 document.getElementById("harga").innerText = d.harga ? Number(d.harga).toLocaleString("id-ID") : "0";
-                
-                if(d.tgl) {
-                    const parts = d.tgl.split("-");
-                    const dt = new Date(parts[0], parts[1]-1, parts[2]);
-                    document.getElementById("tgl").innerText = dt.toLocaleDateString("id-ID", {day:"2-digit", month:"short", year:"numeric"});
-                }
-
                 document.getElementById("qrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(window.location.href)}`;
                 
                 document.getElementById("loading-screen").classList.add("hidden");
@@ -136,4 +123,3 @@
 </script>
 </body>
 </html>
-
