@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Etiket Mahika Trans</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -19,7 +19,6 @@
 
 <div id="main-content" class="etiket-container hidden">
     <div class="etiket-header">
-    
         <div class="header-logo-box">
             <img src="../logo.png" alt="Mahika Trans">
         </div>
@@ -50,9 +49,9 @@
             <img id="qrImg" alt="QR">
             <p class="thanks">Terimakasih atas kepercayaan Anda menggunakan jasa layanan kami.</p>
         </div>
-    <!--   <div class="bus-footer">
+        <div class="bus-footer">
             <i class="fas fa-bus bus-goyang"></i>
-        </div> --> 
+        </div>
     </div>
 
     <div class="keterangan-box">
@@ -98,20 +97,35 @@
             const docSnap = await getDoc(doc(db, "bookings", cleanID));
             if(docSnap.exists()){
                 const d = docSnap.data();
+                
+                // Isi Data Teks
                 document.getElementById("kodeBooking").innerText = cleanID;
                 document.getElementById("nama").innerText = d.nama || "-";
                 document.getElementById("no_hp").innerText = d.wa || "-";
                 document.getElementById("armada").innerText = d.armada || "-";
                 document.getElementById("tujuan").innerText = d.tujuan || "-";
                 document.getElementById("no_kursi").innerText = d.kursi || "-";
-                document.getElementById("jam").innerText = (d.jam || "--:--").replace(/WIB/gi, "") + " WIB";
+                document.getElementById("jam").innerText = (d.jam || "--:--").replace(/WIB/gi, "").trim() + " WIB";
                 document.getElementById("harga").innerText = d.harga ? Number(d.harga).toLocaleString("id-ID") : "0";
+                
+                // LOGIKA TANGGAL (FIXED)
+                const rawDate = d.tanggal || d.tgl;
+                if (rawDate && rawDate !== "-") {
+                    const parts = rawDate.split("-");
+                    const dt = new Date(parts[0], parts[1] - 1, parts[2]);
+                    document.getElementById("tgl").innerText = dt.toLocaleDateString("id-ID", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric"
+                    });
+                }
+
                 document.getElementById("qrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(window.location.href)}`;
                 
                 document.getElementById("loading-screen").classList.add("hidden");
                 document.getElementById("main-content").classList.remove("hidden");
             } else { showErr(); }
-        } catch (e) { showErr(); }
+        } catch (e) { console.error(e); showErr(); }
     }
 
     function showErr() {
@@ -122,4 +136,5 @@
     init();
 </script>
 </body>
-</html>
+    </html>
+    
