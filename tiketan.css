@@ -74,7 +74,7 @@ body {
 
 .kolom { width: 48%; }
 .kolom p {
-    font-size: 12px;
+    font-size: 11px;
     background: #fff;
     padding: 9px;
     border-radius: 6px;
@@ -138,4 +138,3 @@ body {
 #loading-screen { position: fixed; inset: 0; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 100; color: #0066AE; }
 #error-screen { position: fixed; inset: 0; background: #0066AE; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 200; color: #fff; text-align: center; }
 .btn-wa { background: #FFD700; color: #004a80 !important; text-decoration: none; padding: 12px 30px; border-radius: 50px; font-weight: bold; margin-top: 20px; display: inline-block; }
-                
