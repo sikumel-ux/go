@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Etiket Mahika Trans</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -19,10 +19,9 @@
 
 <div id="main-content" class="etiket-container hidden">
     <div class="etiket-header">
-        <div class="nav-top"><i class="fas fa-arrow-left"></i></div>
-        <div class="header-logo-box">
+        <a href="https://mahikatrans.my.id" class="header-logo-box">
             <img src="../logo.png" alt="Mahika Trans">
-        </div>
+        </a>
         <div class="kode-booking-card">
             MT-<span id="kodeBooking">------</span>
         </div>
@@ -46,13 +45,10 @@
     <div class="tear-line"></div>
 
     <div class="barcode-section">
-        <div class="barcode-card">
-            <img id="qrImg" alt="QR">
-            <p class="thanks">Terimakasih atas kepercayaan Anda menggunakan jasa layanan kami.</p>
+        <div class="qr-card">
+            <img id="qrImg" alt="QR Code">
         </div>
-        <div class="bus-footer">
-            <i class="fas fa-bus bus-goyang"></i>
-        </div>
+        <p class="thanks">Terimakasih atas kepercayaan Anda menggunakan jasa layanan kami.</p>
     </div>
 
     <div class="keterangan-box">
@@ -63,11 +59,16 @@
             <li>Anak usia 3 tahun wajib membeli tiket</li>
         </ul>
     </div>
+
+    <div class="footer-bottom">
+        
+        <p>&copy; 2026 Mahika Trans. All Rights Reserved.</p>
+    </div>
 </div>
 
 <div id="error-screen" class="hidden">
     <div class="error-content">
-        <i class="fas fa-bus-alt fa-4x bus-goyang-error"></i>
+        <i class="fas fa-exclamation-triangle fa-4x"></i>
         <h2>KODE TIDAK VALID</h2>
         <a href="https://wa.me/6281211407667" class="btn-wa">HUBUNGI ADMIN</a>
     </div>
@@ -104,14 +105,23 @@
                 document.getElementById("armada").innerText = d.armada || "-";
                 document.getElementById("tujuan").innerText = d.tujuan || "-";
                 document.getElementById("no_kursi").innerText = d.kursi || "-";
-                document.getElementById("jam").innerText = (d.jam || "--:--").replace(/WIB/gi, "") + " WIB";
+                document.getElementById("jam").innerText = (d.jam || "--:--").replace(/WIB/gi, "").trim() + " WIB";
                 document.getElementById("harga").innerText = d.harga ? Number(d.harga).toLocaleString("id-ID") : "0";
-                document.getElementById("qrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(window.location.href)}`;
                 
+                const rawDate = d.tanggal || d.tgl;
+                if (rawDate && rawDate !== "-") {
+                    const parts = rawDate.split("-");
+                    const dt = new Date(parts[0], parts[1] - 1, parts[2]);
+                    document.getElementById("tgl").innerText = dt.toLocaleDateString("id-ID", {
+                        day: "2-digit", month: "short", year: "numeric"
+                    });
+                }
+
+                document.getElementById("qrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(window.location.href)}`;
                 document.getElementById("loading-screen").classList.add("hidden");
                 document.getElementById("main-content").classList.remove("hidden");
             } else { showErr(); }
-        } catch (e) { showErr(); }
+        } catch (e) { console.error(e); showErr(); }
     }
 
     function showErr() {
