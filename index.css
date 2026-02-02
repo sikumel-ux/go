@@ -1,57 +1,44 @@
-body { font-family: 'Poppins', sans-serif; background: #f4f4f4; margin: 0; padding: 0; display: flex; justify-content: center; height: 100vh; }
-.etiket-container { width: 100%; max-width: 420px; background: #fff; display: flex; flex-direction: column; position: relative; }
-.hidden { display: none !important; }
+body { font-family: 'Poppins', sans-serif; background: #f4f4f4; margin: 0; padding: 0; display: flex; justify-content: center; align-items: flex-start; }
+.etiket-container { width: 100%; max-width: 420px; background: #fff; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
 
-/* HEADER LEBIH SLIM */
-.etiket-header {
-    background: #0066AE;
-    padding: 25px 20px 45px; /* Padding atas & bawah dikecilkan */
-    text-align: center;
-    border-radius: 0 0 30px 30px;
-    position: relative;
-}
+/* HEADER SLIM */
+.etiket-header { background: #0066AE; padding: 30px 20px 45px; text-align: center; border-radius: 0 0 30px 30px; position: relative; z-index: 5; }
+.header-logo-box { display: inline-block; text-decoration: none; transition: transform 0.2s; }
+.header-logo-box:active { transform: scale(0.95); }
+.header-logo-box img { width: 160px; max-width: 70%; height: auto; }
 
-/* LOGO LEBIH KECIL */
-.header-logo-box img {
-    width: 160px; /* Ukuran logo dikecilkan (sebelumnya 250px) */
-    max-width: 60%;
-    height: auto;
-}
+.kode-booking-card { position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); background: #FFD700; color: #004a80; width: 75%; padding: 10px; font-weight: 900; font-size: 18px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); text-align: center; z-index: 100; }
 
-/* PENYESUAIAN JARAK GRID */
-.info-grid {
-    display: flex;
-    justify-content: space-between;
-    padding: 35px 15px 10px; /* Jarak atas diturunkan sedikit agar tidak tabrakan dengan card kuning */
-    gap: 10px;
-}
-
-
+/* GRID INFO */
+.info-grid { display: flex; justify-content: space-between; padding: 40px 15px 10px; gap: 8px; }
 .kolom { width: 49%; }
-.kolom p { font-size: 11px; background: #fff; padding: 8px; border-radius: 5px; border: 1px solid #f0f0f0; display: flex; align-items: center; margin-bottom: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-.kolom i { margin-right: 8px; color: #0066AE; width: 12px; }
+.kolom p { font-size: 12px; background: #fff; padding: 9px; border-radius: 6px; border: 1px solid #f0f0f0; display: flex; align-items: center; margin-bottom: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+.kolom i { margin-right: 8px; color: #0066AE; width: 14px; text-align: center; }
 
 /* TEAR LINE */
 .tear-line { width: 100%; height: 12px; margin: 10px 0; background-image: linear-gradient(to right, #ccc 2px, transparent 2px); background-size: 10px 100%; }
 
-/* QR & BUS */
-.barcode-section { text-align: center; padding: 10px; }
-.barcode-card { background: #fff; border: 1px solid #eee; padding: 15px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: inline-block; width: 85%; }
-.barcode-card img { width: 120px; height: 120px; }
-.bus-footer { margin-top: 15px; }
-.bus-goyang { font-size: 28px; color: #000; animation: swing 1s infinite alternate ease-in-out; display: inline-block; }
-@keyframes swing { from { transform: rotate(-10deg); } to { transform: rotate(10deg); } }
-
-/* KETERANGAN SHADOW HITAM */
-.keterangan-box { background: #f9f9f9; margin: 10px 15px; padding: 12px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.15); }
-.keterangan-box p, .keterangan-box li { font-size: 10px; color: #333; margin: 0; }
-.thanks { font-size: 10px; font-weight: bold; margin-top: 8px; }
-.nav-top {
-    display: none !important;
+/* QR SECTION MINIMALIS */
+.barcode-section { text-align: center; padding: 10px 20px; }
+.qr-card { 
+    background: #fff; 
+    padding: 15px; 
+    border-radius: 15px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+    display: inline-block; /* Mengikuti ukuran gambar */
+    border: 1px solid #f0f0f0;
 }
-                 
-/* SCREEN */
-#loading-screen { position: fixed; inset: 0; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 100; color: #0066AE; }
-#error-screen { position: fixed; inset: 0; background: #0066AE; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 200; color: #fff; }
-.btn-wa { background: #FFD700; color: #0066AE !important; text-decoration: none; padding: 12px 25px; border-radius: 30px; font-weight: bold; margin-top: 20px; }
-  
+.qr-card img { width: 150px; height: 150px; display: block; }
+.thanks { font-size: 10px; font-weight: bold; margin-top: 15px; color: #333; max-width: 250px; margin-left: auto; margin-right: auto; line-height: 1.4; }
+
+/* KETERANGAN */
+.keterangan-box { background: #f9f9f9; margin: 10px 15px 20px; padding: 12px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+.keterangan-box p, .keterangan-box li { font-size: 10px; color: #333; margin-bottom: 4px; }
+.footer-bottom { text-align: center; margin-top: auto; padding: 15px; font-size: 9px; color: #bbb; }
+
+/* SCREEN UTILS */
+.hidden { display: none !important; }
+#loading-screen { position: fixed; inset: 0; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 999; }
+#error-screen { position: fixed; inset: 0; background: #0066AE; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000; color: #fff; text-align: center; padding: 20px; }
+.btn-wa { background: #FFD700; color: #004a80 !important; text-decoration: none; padding: 12px 30px; border-radius: 50px; font-weight: bold; margin-top: 20px; display: inline-block; }
+            
