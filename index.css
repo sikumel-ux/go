@@ -1,19 +1,49 @@
 body { font-family: 'Poppins', sans-serif; background: #f4f4f4; margin: 0; padding: 0; display: flex; justify-content: center; align-items: flex-start; }
 .etiket-container { width: 100%; max-width: 420px; background: #fff; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
 
-/* HEADER SLIM */
-.etiket-header { background: #0066AE; padding: 30px 20px 45px; text-align: center; border-radius: 0 0 30px 30px; position: relative; z-index: 5; }
-.header-logo-box { display: inline-block; text-decoration: none; transition: transform 0.2s; }
-.header-logo-box:active { transform: scale(0.95); }
-.header-logo-box img { width: 210px; max-width: 85%; height: auto; }
+/* HEADER SUPER SLIM */
+.etiket-header { 
+    background: #0066AE; 
+    padding: 20px 20px 25px; /* Padding bawah dipangkas jadi 25px saja */
+    text-align: center; 
+    border-radius: 0 0 30px 30px; 
+    position: relative; 
+    z-index: 5; 
+}
 
-.kode-booking-card { position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); background: #FFD700; color: #004a80; width: 75%; padding: 10px; font-weight: 900; font-size: 18px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); text-align: center; z-index: 100; }
+/* LOGO TETAP GEDE */
+.header-logo-box img { 
+    width: 210px; 
+    max-width: 85%; 
+    height: auto; 
+}
 
-/* GRID INFO */
-.info-grid { display: flex; justify-content: space-between; padding: 40px 15px 10px; gap: 8px; }
-.kolom { width: 49%; }
-.kolom p { font-size: 12px; background: #fff; padding: 9px; border-radius: 6px; border: 1px solid #f0f0f0; display: flex; align-items: center; margin-bottom: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-.kolom i { margin-right: 8px; color: #0066AE; width: 14px; text-align: center; }
+/* CARD KUNING DISESUAIKAN POSISINYA */
+.kode-booking-card { 
+    position: absolute; 
+    bottom: -18px; /* Disesuaikan agar tetap nempel pas di lengkungan */
+    left: 50%; 
+    transform: translateX(-50%); 
+    background: #FFD700; 
+    color: #004a80; 
+    width: 70%; 
+    padding: 8px; /* Sedikit lebih ramping */
+    font-weight: 900; 
+    font-size: 16px; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+    text-align: center; 
+    z-index: 100; 
+}
+
+/* INFO GRID DINAIKKAN */
+.info-grid { 
+    display: flex; 
+    justify-content: space-between; 
+    padding: 30px 15px 10px; /* Jarak atas cuma 30px biar mepet header */
+    gap: 8px; 
+}
+
 
 /* TEAR LINE */
 .tear-line { width: 100%; height: 12px; margin: 10px 0; background-image: linear-gradient(to right, #ccc 2px, transparent 2px); background-size: 10px 100%; }
