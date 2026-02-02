@@ -3,7 +3,7 @@ body { font-family: 'Poppins', sans-serif; background: #f4f4f4; margin: 0; paddi
 .hidden { display: none !important; }
 
 /* HEADER SLIM & CENTER CARD */
-.etiket-header { background: #0066AE; padding: 30px 20px 50px; text-align: center; border-radius: 0 0 30px 30px; position: relative; }
+.etiket-header { background: #0066AE; padding: 20px 20px 20px; text-align: center; border-radius: 0 0 30px 30px; position: relative; }
 .header-logo-box img { width: 220px; max-width: 80%; height: auto; }
 .kode-booking-card { position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); background: #FFD700; color: #004a80; width: 70%; padding: 10px; font-weight: 900; font-size: 18px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); text-align: center; z-index: 10; }
 
