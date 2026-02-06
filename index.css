@@ -29,5 +29,63 @@ body { font-family: 'Poppins', sans-serif; background: #f4f4f4; margin: 0; paddi
 .keterangan-box { background: #f9f9f9; margin: 10px 15px 30px; padding: 12px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.18); border: 1px solid #eee; }
 .keterangan-box p, .keterangan-box li { font-size: 10px; color: #333; margin-bottom: 3px; }
 
+/* --- ERROR SCREEN STYLE --- */
+#error-screen {
+    position: fixed;
+    inset: 0;
+    background: #0066AE; /* Biru Mahika */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
+
+.error-content i {
+    color: #FFD700; /* Kuning Mahika */
+    margin-bottom: 20px;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+}
+
+.error-content h2 {
+    font-weight: 900;
+    font-size: 24px;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.btn-wa {
+    background: #FFD700;
+    color: #004a80 !important;
+    text-decoration: none;
+    padding: 14px 35px;
+    border-radius: 50px;
+    font-weight: 900;
+    font-size: 14px;
+    margin-top: 25px;
+    display: inline-block;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    transition: transform 0.2s;
+}
+
+.btn-wa:active {
+    transform: scale(0.95);
+}
+
+/* Animasi Goyang untuk Icon Error */
+.bus-goyang-error {
+    display: inline-block;
+    animation: shake 0.5s infinite alternate ease-in-out;
+}
+
+@keyframes shake {
+    from { transform: translateY(0); }
+    to { transform: translateY(-10px); }
+}
+
+
 .hidden { display: none !important; }
 #loading-screen { position: fixed; inset: 0; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 999; }
