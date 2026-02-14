@@ -11,7 +11,7 @@ body { font-family: 'Poppins', sans-serif; background: #f4f4f4; margin: 0; paddi
 /* INFO GRID */
 .info-grid { display: flex; justify-content: space-between; padding: 35px 15px 10px; gap: 8px; }
 .kolom { width: 49%; }
-.kolom p { font-size: 11px; background: #fff; padding: 9px; border-radius: 6px; border: 1px solid #f0f0f0; display: flex; align-items: center; margin-bottom: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); color: #333; }
+.kolom p { font-size: 13px; background: #fff; padding: 9px; border-radius: 6px; border: 1px solid #f0f0f0; display: flex; align-items: center; margin-bottom: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); color: #333; }
 .kolom i { margin-right: 8px; color: #0066AE; width: 14px; text-align: center; }
 
 /* TEAR LINE */
