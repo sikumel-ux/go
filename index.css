@@ -1,0 +1,173 @@
+body { 
+  font-family: 'Poppins', sans-serif; 
+  background: #f0f2f5; /* Warna bg sedikit lebih soft */
+  margin: 0; 
+  padding: 0; 
+  display: flex; 
+  justify-content: center; 
+  align-items: flex-start; 
+}
+
+.etiket-container { 
+  width: 100%; 
+  max-width: 420px; 
+  background: #fff; 
+  display: flex; 
+  flex-direction: column; 
+  min-height: 100vh; 
+  overflow: visible; 
+  box-shadow: 0 0 20px rgba(0,0,0,0.1); /* Tambah bayangan di sisi kontainer */
+}
+
+/* HEADER & LOGO */
+.etiket-header { 
+  background: #0066AE; 
+  padding: 25px 20px 45px; /* Padding bawah ditambah untuk ruang kartu booking */
+  text-align: center; 
+  border-radius: 0 0 35px 35px; 
+  position: relative; 
+  z-index: 5; 
+  box-shadow: 0 4px 15px rgba(0,66,174,0.3); 
+}
+.header-logo-box img { 
+  width: 180px; 
+  max-width: 80%; 
+  height: auto; 
+}
+
+/* KODE BOOKING CARD - Dibuat lebih mencolok */
+.kode-booking-card { 
+  position: absolute; 
+  bottom: -22px; 
+  left: 50%; 
+  transform: translateX(-50%); 
+  background: #FFD700; 
+  color: #004a80; 
+  width: 75%; 
+  padding: 12px; 
+  font-weight: 800; 
+  font-size: 18px; /* Lebih besar */
+  letter-spacing: 1px;
+  border-radius: 12px; 
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2); 
+  text-align: center; 
+  z-index: 100; 
+  border: 2px solid #fff; /* Border putih tipis agar kontras */
+}
+
+/* INFO GRID - Tulisan lebih gede & Icon lebih jelas */
+.info-grid { 
+  display: flex; 
+  justify-content: space-between; 
+  padding: 50px 18px 10px; /* Padding atas ditambah karena kartu booking membesar */
+  gap: 10px; 
+}
+.kolom { width: 49%; }
+.kolom p { 
+  font-size: 13px; /* Naik dari 11px */
+  font-weight: 500;
+  background: #ffffff; 
+  padding: 12px 10px; 
+  border-radius: 10px; 
+  border: 1px solid #eef0f2; 
+  display: flex; 
+  align-items: center; 
+  margin-bottom: 8px; 
+  box-shadow: 0 3px 6px rgba(0,0,0,0.04); 
+  color: #222; 
+}
+.kolom i { 
+  margin-right: 10px; 
+  color: #0066AE; 
+  width: 18px; 
+  font-size: 15px; 
+  text-align: center; 
+}
+
+/* TEAR LINE */
+.tear-line { 
+  width: 100%; 
+  height: 2px; /* Dibuat lebih tipis dan bersih */
+  margin: 20px 0; 
+  background-image: linear-gradient(to right, #ddd 50%, transparent 50%); 
+  background-size: 15px 100%; 
+}
+
+/* QR SECTION */
+.barcode-section { text-align: center; padding: 10px 20px; }
+.qr-card { 
+  background: #fff; 
+  padding: 15px; 
+  border-radius: 15px; 
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08); 
+  display: inline-block; 
+  border: 1px solid #f0f0f0; 
+}
+.qr-card img { 
+  width: 140px; /* QR diperbesar agar mudah discan */
+  height: 140px; 
+  display: block; 
+}
+
+/* THANKS TEKS */
+.thanks { 
+  font-size: 13px; 
+  font-weight: 600; 
+  margin: 20px auto 10px; 
+  color: #444; 
+  line-height: 1.6; 
+  max-width: 280px; 
+  text-align: center; 
+}
+
+/* KETERANGAN BOX */
+.keterangan-box { 
+  background: #fdfdfd; 
+  margin: 15px 18px 40px; 
+  padding: 15px; 
+  border-radius: 12px; 
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+  border: 1px dashed #ccc; /* Pakai garis putus-putus biar estetik tiket */
+}
+.keterangan-box p, .keterangan-box li { 
+  font-size: 12px; /* Naik dari 10px */
+  color: #555; 
+  margin-bottom: 6px; 
+  line-height: 1.4;
+}
+
+/* --- ERROR SCREEN STYLE --- */
+#error-screen {
+    position: fixed;
+    inset: 0;
+    background: #0066AE;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    color: #fff;
+    text-align: center;
+    padding: 30px;
+}
+
+.error-content h2 {
+    font-weight: 800;
+    font-size: 26px;
+    margin-bottom: 15px;
+}
+
+.btn-wa {
+    background: #FFD700;
+    color: #004a80 !important;
+    text-decoration: none;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 15px;
+    margin-top: 30px;
+    display: inline-block;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+.hidden { display: none !important; }
