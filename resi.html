@@ -11,23 +11,23 @@
 <body>
 
 <div id="loading-screen">
-    <i class="fas fa-circle-notch fa-spin fa-3x"></i>
+    <i class="fas fa-circle-notch fa-spin fa-3x" style="color:#065084"></i>
     <p>Memvalidasi Resi...</p>
 </div>
 
 <div id="main-content" class="etiket-container hidden">
     <div class="etiket-header">
         <div class="header-logo-box"><img src="../logo.png" alt="Mahika Trans"></div>
-        <div class="kode-booking-card">MT-<span id="kodeResi">------</span></div>
+        <div class="kode-booking-card">MT-<span id="noResi">------</span></div>
     </div>
 
     <div class="info-grid">
         <div class="kolom">
-            <p><label style="font-size: 8px; color: #999; display: block; margin-bottom: -5px;">PENGIRIM</label>
+            <p><label style="font-size: 8px; color:#999; display:block;">PENGIRIM</label> 
                <i class="fas fa-circle-user"></i> <span id="pengirim">-</span></p>
             <p><i class="fab fa-whatsapp"></i> <span id="wa_pengirim">-</span></p>
             
-            <p style="margin-top: 10px;"><label style="font-size: 8px; color: #999; display: block; margin-bottom: -5px;">PENERIMA</label>
+            <p style="margin-top:10px;"><label style="font-size: 8px; color:#999; display:block;">PENERIMA</label> 
                <i class="fas fa-user"></i> <span id="penerima">-</span></p>
             <p><i class="fas fa-phone"></i> <span id="wa_penerima">-</span></p>
         </div>
@@ -40,16 +40,15 @@
     </div>
 
     <div class="tear-line"></div>
-
     <div class="barcode-section">
         <div class="qr-card"><img id="qrImg" alt="QR Code"></div>
-        <p class="thanks">Terimakasih atas kepercayaan Anda menggunakan jasa layanan kami.</p>
+        <p class="thanks">Terimakasih telah menggunakan jasa Mahika Trans.</p>
     </div>
 
     <div class="keterangan-box">
         <p><strong>Syarat & Ketentuan:</strong></p>
-        <ul style="font-size: 10px; margin-left: 15px; text-align: left;">
-            <li>Barang dilarang berupa zat cair berbahaya atau narkotika.</li>
+        <ul style="font-size: 10px; text-align: left; padding-left: 20px;">
+            <li>Dilarang mengirim barang cair berbahaya atau narkotika.</li>
             <li>Kerusakan akibat packing tidak standar bukan tanggung jawab kami.</li>
             <li>Klaim kehilangan maksimal 1x24 jam setelah barang sampai.</li>
         </ul>
@@ -71,17 +70,22 @@
     const db = getFirestore(app);
 
     async function init() {
+        // Ambil ID dari parameter URL ?id=
         const params = new URLSearchParams(window.location.search);
-        let id = params.get("id") || window.location.pathname.split("/").pop();
-        const cleanID = id ? id.toUpperCase().replace("MT-", "") : null;
-        
-        if(!cleanID) return;
+        const id = params.get("id");
+
+        if(!id) {
+            alert("No Resi tidak ditemukan di URL!");
+            return;
+        }
         
         try {
-            const docSnap = await getDoc(doc(db, "packages", cleanID));
+            const docRef = doc(db, "packages", id);
+            const docSnap = await getDoc(docRef);
+
             if(docSnap.exists()){
                 const d = docSnap.data();
-                document.getElementById("kodeResi").innerText = cleanID;
+                document.getElementById("noResi").innerText = id;
                 document.getElementById("pengirim").innerText = d.pengirim || "-";
                 document.getElementById("wa_pengirim").innerText = d.wa_pengirim || "-";
                 document.getElementById("penerima").innerText = d.penerima || "-";
@@ -95,11 +99,17 @@
                     const dt = new Date(parts[0], parts[1]-1, parts[2]);
                     document.getElementById("tgl").innerText = dt.toLocaleDateString("id-ID", {day:"2-digit", month:"short", year:"numeric"});
                 }
+                
                 document.getElementById("qrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(window.location.href)}`;
-                document.getElementById("loading-screen").classList.add("hidden");
+                document.getElementById("loading-screen").style.display = "none";
                 document.getElementById("main-content").classList.remove("hidden");
+            } else {
+                alert("Data Resi MT-" + id + " tidak ditemukan!");
             }
-        } catch (e) { console.error(e); }
+        } catch (e) {
+            console.error(e);
+            alert("Terjadi kesalahan koneksi database.");
+        }
     }
     init();
 </script>
