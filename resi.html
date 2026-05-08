@@ -23,12 +23,9 @@
 
     <div class="info-grid">
         <div class="kolom">
-            
-               <i class="fas fa-circle-user"></i> <span id="pengirim">-</span></p>
+            <p><i class="fas fa-circle-user"></i> <span id="pengirim">-</span></p>
             <p><i class="fab fa-whatsapp"></i> <span id="wa_pengirim">-</span></p>
-            
-            
-               <i class="fas fa-user"></i> <span id="penerima">-</span></p>
+            <p><i class="fas fa-user"></i> <span id="penerima">-</span></p>
             <p><i class="fas fa-phone"></i> <span id="wa_penerima">-</span></p>
         </div>
         <div class="kolom">
@@ -42,7 +39,7 @@
     <div class="tear-line"></div>
     <div class="barcode-section">
         <div class="qr-card"><img id="qrImg" alt="QR Code"></div>
-        <p class="thanks">Terimakasih telah menggunakan jasa kami.</p>
+        <p class="thanks">Terimakasih telah menggunakan jasa Mahika Trans.</p>
     </div>
 
     <div class="keterangan-box">
@@ -50,7 +47,7 @@
         <ul style="font-size: 10px; text-align: left; padding-left: 20px;">
             <li>Dilarang mengirim barang cair berbahaya atau narkotika.</li>
             <li>Kerusakan akibat packing tidak standar bukan tanggung jawab kami.</li>
-            
+            <li>Klaim kehilangan maksimal 1x24 jam setelah barang sampai.</li>
         </ul>
     </div>
 </div>
@@ -70,19 +67,12 @@
     const db = getFirestore(app);
 
     async function init() {
-        // Ambil ID dari parameter URL ?id=
         const params = new URLSearchParams(window.location.search);
         const id = params.get("id");
-
-        if(!id) {
-            alert("No Resi tidak ditemukan di URL!");
-            return;
-        }
+        if(!id) return;
         
         try {
-            const docRef = doc(db, "packages", id);
-            const docSnap = await getDoc(docRef);
-
+            const docSnap = await getDoc(doc(db, "packages", id));
             if(docSnap.exists()){
                 const d = docSnap.data();
                 document.getElementById("noResi").innerText = id;
@@ -103,13 +93,8 @@
                 document.getElementById("qrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(window.location.href)}`;
                 document.getElementById("loading-screen").style.display = "none";
                 document.getElementById("main-content").classList.remove("hidden");
-            } else {
-                alert("Data Resi MT-" + id + " tidak ditemukan!");
             }
-        } catch (e) {
-            console.error(e);
-            alert("Terjadi kesalahan koneksi database.");
-        }
+        } catch (e) { console.error(e); }
     }
     init();
 </script>
