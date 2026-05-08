@@ -23,14 +23,17 @@
 
     <div class="info-grid">
         <div class="kolom">
-            <p><i class="fas fa-circle-user"></i> <span id="pengirim">-</span></p>
-            <p><i class="fas fa-user"></i> <span id="penerima">-</span></p>
-            <p><i class="fas fa-bus"></i> <span id="armada">-</span></p> 
-            <p><i class="fas fa-map-marker-alt"></i> <span id="tujuan">-</span></p>
+            <p><label style="font-size: 8px; color: #999; display: block; margin-bottom: -5px;">PENGIRIM</label>
+               <i class="fas fa-circle-user"></i> <span id="pengirim">-</span></p>
+            <p><i class="fab fa-whatsapp"></i> <span id="wa_pengirim">-</span></p>
+            
+            <p style="margin-top: 10px;"><label style="font-size: 8px; color: #999; display: block; margin-bottom: -5px;">PENERIMA</label>
+               <i class="fas fa-user"></i> <span id="penerima">-</span></p>
+            <p><i class="fas fa-phone"></i> <span id="wa_penerima">-</span></p>
         </div>
         <div class="kolom">
-            <p><i class="fas fa-box"></i> <span id="barang">-</span></p>
-            <p><i class="fas fa-weight-hanging"></i> <span id="berat">-</span></p>
+            <p><i class="fas fa-map-marker-alt"></i> <span id="tujuan">-</span></p>
+            <p><i class="fas fa-boxes"></i> <span id="jumlah">-</span></p>
             <p><i class="fas fa-calendar-alt"></i> <span id="tgl">-</span></p>
             <p><i class="fa-solid fa-rupiah-sign"></i> <span id="harga">0</span></p>
         </div>
@@ -47,8 +50,8 @@
         <p><strong>Syarat & Ketentuan:</strong></p>
         <ul style="font-size: 10px; margin-left: 15px; text-align: left;">
             <li>Barang dilarang berupa zat cair berbahaya atau narkotika.</li>
-            <li>Kerusakan akibat packing yang tidak standar bukan tanggung jawab kami.</li>
-            
+            <li>Kerusakan akibat packing tidak standar bukan tanggung jawab kami.</li>
+            <li>Klaim kehilangan maksimal 1x24 jam setelah barang sampai.</li>
         </ul>
     </div>
 </div>
@@ -71,6 +74,7 @@
         const params = new URLSearchParams(window.location.search);
         let id = params.get("id") || window.location.pathname.split("/").pop();
         const cleanID = id ? id.toUpperCase().replace("MT-", "") : null;
+        
         if(!cleanID) return;
         
         try {
@@ -79,11 +83,11 @@
                 const d = docSnap.data();
                 document.getElementById("kodeResi").innerText = cleanID;
                 document.getElementById("pengirim").innerText = d.pengirim || "-";
+                document.getElementById("wa_pengirim").innerText = d.wa_pengirim || "-";
                 document.getElementById("penerima").innerText = d.penerima || "-";
-                document.getElementById("armada").innerText = d.armada || "-";
+                document.getElementById("wa_penerima").innerText = d.wa_penerima || "-";
                 document.getElementById("tujuan").innerText = d.tujuan || "-";
-                document.getElementById("barang").innerText = d.barang || "-";
-                document.getElementById("berat").innerText = d.berat || "-";
+                document.getElementById("jumlah").innerText = d.jumlah || "-";
                 document.getElementById("harga").innerText = d.harga ? Number(d.harga).toLocaleString("id-ID") : "0";
                 
                 if (d.tgl) {
